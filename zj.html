@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知己活动好感度计算</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f5;
+            padding: 30px 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #555;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            background-color: #e0f7e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        /* 回到首页按钮样式 */
+        .back-home-button {
+            position: relative;
+            top: 10px;
+            padding: 10px 15px;
+            background-color: #2897e6;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 25%;
+        }
+
+        .back-home-button:hover {
+            background-color: #4f9cc3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 在页面的右上角添加"回到首页"按钮 -->
+        <button class="back-home-button" onclick="window.location.href='db_index.html'">回到首页</button>
+        
+        <h1>知己活动好感度计算</h1>
+        <form id="giftForm">
+            <div class="input-container">
+                <label for="flowerCount">请输入【玫瑰】的数量：</label>
+                <input type="number" id="flowerCount" value="0" min="0">
+            </div>
+
+            <div class="input-container">
+                <label for="hairpinCount">请输入【簪子】的数量：</label>
+                <input type="number" id="hairpinCount" value="0" min="0">
+            </div>
+
+            <div class="input-container">
+                <label for="jadeCount">请输入【玉佩】的数量：</label>
+                <input type="number" id="jadeCount" value="0" min="0">
+            </div>
+
+            <button type="button" onclick="calculateTotal()">计算好感度</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // 定义物品价格
+        const flowerPrice = 1;
+        const hairpinPrice = 3;
+        const jadePrice = 10;
+
+        // 计算好感度
+        function calculateTotal() {
+            // 获取用户输入的数量
+            const flowerCount = parseInt(document.getElementById("flowerCount").value);
+            const hairpinCount = parseInt(document.getElementById("hairpinCount").value);
+            const jadeCount = parseInt(document.getElementById("jadeCount").value);
+
+            // 计算总价
+            const totalCost = flowerCount * flowerPrice + hairpinCount * hairpinPrice + jadeCount * jadePrice;
+
+            // 输出结果
+            document.getElementById("result").innerText = "好感度总值为：" + totalCost;
+        }
+    </script>
+</body>
+
+</html>
