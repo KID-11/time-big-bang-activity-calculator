@@ -8,6 +8,8 @@ const fieldMap = {
     meritMultiplier: "军功倍率",
 };
 
+let dataLoaded = false; // 用来检查数据是否加载完成
+
 // 初始化数据加载
 function initData() {
     // sg_data测试版
@@ -15,6 +17,7 @@ function initData() {
         .then(response => response.json())
         .then(loadedData => {
             data = loadedData;
+            dataLoaded = true;  // 数据加载完成
             console.log("数据加载完成：", data);
         })
         .catch(error => {
