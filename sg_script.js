@@ -68,13 +68,13 @@ function displayResults(results) {
 
     uniqueResults.forEach(record => {
         const row = tbody.insertRow();
-        row.insertCell(0).textContent = record["最终结果"];
-        row.insertCell(1).textContent = record["最终战功"];
-        row.insertCell(2).textContent = record["1亿战功"];
-        row.insertCell(3).textContent = record["2.05亿战功"];
-        row.insertCell(4).textContent = record["2.27亿战功"];
-        row.insertCell(5).textContent = record["3.15亿战功"];
-        row.insertCell(6).textContent = record["4.47亿战功"];
-        row.insertCell(7).textContent = record["4.91亿战功"];
+        // row.insertCell(0).textContent = record["最终结果"];
+        row.insertCell(0).textContent = record["最终战功"];
+        row.insertCell(1).textContent = record["1亿战功"];
+        row.insertCell(2).textContent = record["2.05亿战功"];
+        row.insertCell(3).textContent = record["2.27亿战功"];
+        row.insertCell(4).textContent = record["3.15亿战功"];
+        row.insertCell(5).textContent = record["4.47亿战功"];
+        row.insertCell(6).textContent = record["4.91亿战功"];
     });
 }
