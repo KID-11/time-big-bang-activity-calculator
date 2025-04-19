@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"谁主三国"活动军功计算器</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 结果显示区域 */
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            background-color: #e0f7e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        /* 返回首页按钮样式 */
+        .back-home-button {
+            position: relative;
+            top: 10px;
+            padding: 10px 15px;
+            background-color: #2897e6;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 30%;
+        }
+
+        .back-home-button:hover {
+            background-color: #4f9cc3;
+        }
+
+        /* 新增的表格样式 */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* 美化选择框 */
+        select {
+            padding: 10px 14px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+            margin: 10px 5px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #2897e6;
+            box-shadow: 0 0 8px rgba(40, 151, 230, 0.4);
+        }
+
+        select:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* 美化label */
+        label {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 5px;
+        }
+
+        .info-panel {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-panel h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .info-panel p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            text-align: left;
+        }
+    </style>
+</head>
+<script src="sg_script.js"></script>
+
+<body onload="initData()">
+    <div class="container">
+        <button class="back-home-button" onclick="window.location.href='index.html'">返回首页</button>
+
+        <h1>军功计算器</h1>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+
+            <!-- 筛选条件 -->
+            <div>
+                <label for="era">【选择时代】</label>
+                <select id="era">
+                    <option value="">请选择</option>
+                    <option value="盛世前">盛世前</option>
+                    <option value="盛世中">盛世中</option>
+                    <option value="盛世后">盛世后</option>
+                    <option value="火器前">火器前</option>
+                    <option value="火器中">火器中</option>
+                    <option value="火器后">火器后</option>
+                    <option value="航海前">航海前</option>
+                    <option value="航海中">航海中</option>
+                    <option value="航海后">航海后</option>
+                    <option value="蒸汽前">蒸汽前</option>
+                    <option value="蒸汽中">蒸汽中</option>
+                </select>
+            </div>
+            <div>
+                <label for="campLevel">【大帐等级】</label>
+                <select id="campLevel">
+                    <option value="">请选择</option>
+                    <option value="10阶">10阶</option>
+                    <option value="20阶">20阶</option>
+                    <option value="25阶">25阶</option>
+                    <option value="30阶">30阶</option>
+                    <option value="34阶">34阶</option>
+                </select>
+            </div>
+            <div>
+                <label for="naturalStamina">【自然体力使用率】</label>
+                <select id="naturalStamina">
+                    <option value="">请选择</option>
+                    <option value="1.0">1.0</option>
+                    <option value="0.9">0.9</option>
+                    <option value="0.8">0.8</option>
+                    <option value="0.7">0.7</option>
+                    <option value="0.6">0.6</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.4">0.4</option>
+                    <option value="0.3">0.3</option>
+                    <option value="0.2">0.2</option>
+                    <option value="0.1">0.1</option>
+                </select>
+            </div>
+            <div>
+                <label for="militaryMeritMultiplier">【军功倍率】</label>
+                <select id="militaryMeritMultiplier">
+                    <option value="">请选择</option>
+                    <option value="1.0">1.0</option>
+                    <option value="1.1">1.1</option>
+                    <option value="1.15">1.15</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.3">1.3</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="filterData()">查询</button>
+
+        <!-- 查询结果表格 -->
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>最终军功</th>
+                    <th>军功</th>
+                    <th>1亿军功</th>
+                    <th>2.05亿军功</th>
+                    <th>2.27亿军功</th>
+                    <th>3.15亿军功</th>
+                    <th>4.47亿军功</th>
+                    <th>4.91亿军功</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <div class="result" id="resultArea" style="display: none;">
+            <p><strong>最终结果:</strong> <span id="finalResult"></span></p>
+            <p><strong>最终战功:</strong> <span id="finalMilitaryMerit"></span></p>
+            <p><strong>1亿战功:</strong> <span id="oneBillionMilitaryMerit"></span></p>
+            <p><strong>2.05亿战功:</strong> <span id="twoBillionFiveMillionMilitaryMerit"></span></p>
+            <p><strong>2.27亿战功:</strong> <span id="twoBillionSevenMillionMilitaryMerit"></span></p>
+            <p><strong>3.15亿战功:</strong> <span id="threeBillionFiftyMillionMilitaryMerit"></span></p>
+            <p><strong>4.47亿战功:</strong> <span id="fourBillionFortySevenMillionMilitaryMerit"></span></p>
+            <p><strong>4.91亿战功:</strong> <span id="fourBillionNinetyOneMillionMilitaryMerit"></span></p>
+        </div>
+
+        <!-- 说明板块 -->
+        <div class="info-panel">
+            <h2>说明</h2>
+            <!-- <p><strong>系统搭建：</strong>大饼</p> -->
+            <p><strong>数据提供：</strong>洋芋蛋儿</p>
+            <p><strong>词条解释【大帐等级】：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联盟献计可提高军师大帐等级。<br>
+            </p>
+            <p><strong>词条解释【自然体力使用率】：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即随时间而恢复的兵力，你的使用比率。如果军营一直处于招兵状态（即将所有时间恢复的免费兵全部打完），则比率为1，若使用较少则为0.x的比率。<br>
+            </p>
+            <p><strong>词条解释【军功倍率】：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1兵力=兵损10+杀敌数，最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br>
+            </p>
+            <p><strong>词条解释【最终军功】：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此为预估值，仅供参考，但一般来说有以下关系式：
+                你的实际军功≤【时代+大帐等级+1.0自然体力使用率+1.3倍军功倍率】所得的军功<br>
+            </p>
+            <p><strong>词条解释【x亿军功】：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指的是，你若想达到x亿军功档位还需要补充的兵符的预计数量。<br>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
