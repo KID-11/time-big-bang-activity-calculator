@@ -19,7 +19,7 @@ function initData() {
         })
         .catch(error => {
             console.error("数据加载失败：", error);
-            alert("数据加载失败，请检查 sg_data.json 是否存在！");
+            alert("数据加载失败，请检查 sgdbzSG.json 是否存在！");
         });
 }
 
