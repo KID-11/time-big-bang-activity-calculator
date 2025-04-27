@@ -91,3 +91,24 @@ button:hover {
 .back-home-button:hover {
     background-color: #4f9cc3;
 }
+
+.info-panel {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-panel h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.info-panel p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.8;
+    text-align: left;
+}
