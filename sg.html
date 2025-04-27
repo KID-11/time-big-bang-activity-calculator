@@ -3,41 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>军功计算器</title>
+    <title>军功计算器【三天一共】</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f5;
-            padding: 30px 0;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: #555;
-            text-align: left;
-        }
-
-        select,
-        input {
+        select {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -49,77 +18,9 @@
             transition: border-color 0.3s ease;
         }
 
-        input:focus,
         select:focus {
             border-color: #4CAF50;
             background-color: #fff;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .result {
-            font-size: 18px;
-            margin-top: 20px;
-            text-align: center;
-            font-weight: bold;
-            color: #333;
-            background-color: #e0f7e0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 25px;
-        }
-
-        .back-home-button {
-            position: relative;
-            top: 10px;
-            padding: 10px 15px;
-            background-color: #2897e6;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 30%;
-        }
-
-        .back-home-button:hover {
-            background-color: #4f9cc3;
-        }
-
-        .info-panel {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f7f7f7;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .info-panel h2 {
-            font-size: 22px;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .info-panel p {
-            font-size: 16px;
-            color: #555;
-            line-height: 1.8;
-            text-align: left;
         }
     </style>
 </head>
@@ -127,10 +28,9 @@
 <body>
 
     <div class="container">
-        <!-- 在页面的右上角添加"回到首页"按钮 -->
         <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
 
-        <h1>军功计算器</h1>
+        <h1>三天总军功计算器</h1>
 
         <label>【时代】
             <select id="era">
@@ -210,9 +110,9 @@
         <div class="info-panel">
             <h2>说明</h2>
             <!-- <p><strong>系统搭建：</strong>大饼</p> -->
-            <p><strong>计算逻辑提供：</strong>洋芋蛋儿（这个老6在之前的Excel表中【当前时代】【部队1数量】的部分计算那啥了，导致估算出来的军功在偏差的基础上继续偏差）</p>
-            <p><strong>【补充】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此计算基于【默认广告、玉璧、商店都买满】的情况。<br>
+            <p><strong>计算逻辑提供：</strong>洋芋蛋儿</p>
+            <p><strong>【特别提醒】：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此计算基于活动三天【默认广告、玉璧、商店都买满】的情况下，预估的最终军功。<br>
             </p>
             <p><strong>词条解释【大帐阶数】：</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联盟献计可提高军师大帐阶数。<br>
@@ -221,13 +121,12 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即随时间而恢复的兵力，你的使用比率。如果军营一直处于招兵状态（即将所有时间恢复的免费兵全部打完），则比率为1，若使用较少则为0.x的比率。<br>
             </p>
             <p><strong>词条解释【军功倍率】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1兵力=兵损10+杀敌数，最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br>
             </p>
             <p><strong>词条解释【部队1234】：</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填你自己的三国军营的部队数量。<br>
             </p>
         </div>
-
     </div>
 
     <script>
@@ -249,7 +148,16 @@
             const finalMerit = (((tokens + 618) * 5000 + era * 2160 * staminaMultiplier + (troop1 + troop2 + troop3 + troop4) * 3) * 10 * meritMultiplier);
             const neededTokens = (targetMerit - finalMerit) / (50000 * meritMultiplier);
 
-            document.getElementById('finalMerit').innerText = `最终军功：${Math.round(finalMerit).toLocaleString()}`;
+            let meritFormatted = Math.round(finalMerit).toLocaleString();
+            let meritUnit = '';
+
+            if (finalMerit >= 1e8) {
+                meritUnit = `(${(finalMerit / 1e8).toFixed(2)}亿)`;
+            } else if (finalMerit >= 1e4) {
+                meritUnit = `(${(finalMerit / 1e4).toFixed(2)}万)`;
+            }
+
+            document.getElementById('finalMerit').innerText = `三天后最终预估军功：${meritFormatted} ${meritUnit}`;
             document.getElementById('neededTokens').innerText = `需要补充的兵符数量：${Math.max(0, Math.ceil(neededTokens)).toLocaleString()}`;
         }
     </script>
