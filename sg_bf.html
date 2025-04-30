@@ -25,7 +25,7 @@
         <h1>当前军功还需x兵符计算器</h1>
 
         <label>当前军功数值：</label>
-        <input type="number" id="currentMerit" placeholder="例 8888,1.76 等" />
+        <input type="number" id="currentMerit" placeholder="例如 8888, 1.76 等" />
 
         <label>当前军功单位：</label>
         <select id="currentMeritUnit">
@@ -33,23 +33,8 @@
             <option value="100000000">亿</option>
         </select>
 
-        <label>目标军功档位：</label>
-        <select id="targetMerit">
-            <option value="100000000">1亿军功</option>
-            <option value="113000000">1.13亿军功</option>
-            <option value="129000000">1.29亿军功</option>
-            <option value="145000000">1.45亿军功</option>
-            <option value="161000000">1.61亿军功</option>
-            <option value="183000000">1.83亿军功</option>
-            <option value="205000000">2.05亿军功</option>
-            <option value="227000000">2.27亿军功</option>
-            <option value="271000000">2.71亿军功</option>
-            <option value="315000000">3.15亿军功</option>
-            <option value="359000000">3.59亿军功</option>
-            <option value="403000000">4.03亿军功</option>
-            <option value="447000000">4.47亿军功</option>
-            <option value="491000000">4.91亿军功</option>
-        </select>
+        <label>目标军功数值（单位为亿）：</label>
+        <input type="number" id="targetMerit" placeholder="例如 0.88,1.26 等" />
 
         <label>预估军功倍率：</label>
         <select id="meritMultiplier">
@@ -66,7 +51,6 @@
         <div id="result" class="result"></div>
         <div class="info-panel">
             <h2>说明</h2>
-            <!-- <p><strong>系统搭建：</strong>大饼</p> -->
             <p><strong>词条解释【军功倍率】：</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br>
             </p>
@@ -77,8 +61,10 @@
         function calculate() {
             const currentMerit = parseFloat(document.getElementById('currentMerit').value) || 0;
             const currentUnit = parseInt(document.getElementById('currentMeritUnit').value);
-            const targetMerit = parseInt(document.getElementById('targetMerit').value);
+            const targetMeritValue = parseFloat(document.getElementById('targetMerit').value) || 0;
             const meritMultiplier = parseFloat(document.getElementById('meritMultiplier').value);
+
+            const targetMerit = targetMeritValue * 100000000;
 
             const actualCurrentMerit = currentMerit * currentUnit;
 
