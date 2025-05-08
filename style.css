@@ -117,7 +117,7 @@ button:hover {
     text-align: left;
 }
 
-@media (max-width: 630px) {
+@media (max-width: 400px) {
     .container {
         width: 100%;
         padding: 15px;
