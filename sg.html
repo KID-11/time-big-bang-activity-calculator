@@ -6,7 +6,7 @@
     <title>军功计算器【三天一共】</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-        select {
+        select, input[type="text"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -18,7 +18,7 @@
             transition: border-color 0.3s ease;
         }
 
-        select:focus {
+        select:focus, input[type="text"]:focus {
             border-color: #4CAF50;
             background-color: #fff;
         }
@@ -33,26 +33,7 @@
         <h1>三天总军功计算器</h1>
 
         <label>【时代】
-            <select id="era">
-                <option value="330">铁器前</option>
-                <option value="340">铁器中</option>
-                <option value="350">铁器后</option>
-                <option value="360">盛世前</option>
-                <option value="370">盛世中</option>
-                <option value="380">盛世后</option>
-                <option value="390">火器前</option>
-                <option value="400">火器中</option>
-                <option value="410">火器后</option>
-                <option value="420">航海前</option>
-                <option value="430">航海中</option>
-                <option value="440">航海后</option>
-                <option value="450">蒸汽前</option>
-                <option value="460">蒸汽中</option>
-                <option value="470">蒸汽后</option>
-                <option value="480">电气前</option>
-                <option value="490">电气中</option>
-                <option value="500">电气后</option>
-            </select>
+            <input type="text" id="era" placeholder="如：火器中 航海后等" />
         </label>
 
         <label>【大帐阶数 (1~34)】
@@ -61,6 +42,9 @@
 
         <label>【自然体力使用率】
             <select id="staminaMultiplier">
+                <option>0.1</option>
+                <option>0.2</option>
+                id="staminaMultiplier">
                 <option>0.1</option>
                 <option>0.2</option>
                 <option>0.3</option>
@@ -109,7 +93,6 @@
         <!-- 说明板块 -->
         <div class="info-panel">
             <h2>说明</h2>
-            <!-- <p><strong>系统搭建：</strong>大饼</p> -->
             <p><strong>计算逻辑提供：</strong>洋芋蛋儿</p>
             <p><strong>【特别提醒】：</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此计算基于活动三天【默认广告、玉璧、商店都买满】的情况下，预估的最终军功。<br>
@@ -133,7 +116,70 @@
         const tokenList = [5, 10, 15, 20, 30, 40, 50, 60, 75, 90, 105, 120, 140, 160, 180, 200, 220, 240, 260, 290, 320, 350, 380, 410, 450, 490, 530, 570, 610, 660, 710, 760, 810, 860];
 
         function calculate() {
-            const era = parseInt(document.getElementById('era').value);
+            const eraText = document.getElementById('era').value.trim();
+            let era;
+
+            // 根据输入的时代文字来推断时代的数字值
+            switch (eraText) {
+                case '铁器前':
+                    era = 330;
+                    break;
+                case '铁器中':
+                    era = 340;
+                    break;
+                case '铁器后':
+                    era = 350;
+                    break;
+                case '盛世前':
+                    era = 360;
+                    break;
+                case '盛世中':
+                    era = 370;
+                    break;
+                case '盛世后':
+                    era = 380;
+                    break;
+                case '火器前':
+                    era = 390;
+                    break;
+                case '火器中':
+                    era = 400;
+                    break;
+                case '火器后':
+                    era = 410;
+                    break;
+                case '航海前':
+                    era = 420;
+                    break;
+                case '航海中':
+                    era = 430;
+                    break;
+                case '航海后':
+                    era = 440;
+                    break;
+                case '蒸汽前':
+                    era = 450;
+                    break;
+                case '蒸汽中':
+                    era = 460;
+                    break;
+                case '蒸汽后':
+                    era = 470;
+                    break;
+                case '电气前':
+                    era = 480;
+                    break;
+                case '电气中':
+                    era = 490;
+                    break;
+                case '电气后':
+                    era = 500;
+                    break;
+                default:
+                    alert("输入的时代无效，请输入正确的时代名称！");
+                    return;
+            }
+
             const campLevel = parseInt(document.getElementById('campLevel').value);
             const staminaMultiplier = parseFloat(document.getElementById('staminaMultiplier').value);
             const meritMultiplier = parseFloat(document.getElementById('meritMultiplier').value);
