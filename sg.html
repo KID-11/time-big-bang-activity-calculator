@@ -3,10 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>军功计算器【三天一共】</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-        select, input[type="text"] {
+        select,
+        input[type="text"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -18,9 +20,22 @@
             transition: border-color 0.3s ease;
         }
 
-        select:focus, input[type="text"]:focus {
-            border-color: #4CAF50;
-            background-color: #fff;
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .back-home-button {
+                width: 100%;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            button {
+                padding: 14px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
