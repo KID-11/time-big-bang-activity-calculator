@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>百家争鸣积分计算</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
+
+        <h1>百家争鸣（诸子百家）积分计算</h1>
+
+        <form id="contestForm">
+            <div class="input-container">
+                <label for="remainingDays">剩余活动时间 - 天：</label>
+                <input type="number" id="remainingDays" placeholder="0~3" min="0" max="3" />
+            </div>
+
+            <div class="input-container">
+                <label for="remainingHours">剩余活动时间 - 小时：</label>
+                <input type="number" id="remainingHours" placeholder="0~23" min="0" max="23" />
+            </div>
+
+            <div class="input-container">
+                <label for="currentBase">目前基础积分（万）：</label>
+                <input type="number" id="currentBase" step="0.01" value="0" />
+            </div>
+
+            <div class="input-container">
+                <label for="target">目标积分（万）：</label>
+                <input type="number" id="target" step="0.01" value="0" />
+            </div>
+
+            <div class="input-container">
+                <label for="studentsPerPost">一个劝学帖可招募的学生数量：</label>
+                <input type="number" id="studentsPerPost" step="1" />
+            </div>
+
+            <div class="input-container">
+                <label for="postCount">目前已有的劝学帖数量：</label>
+                <input type="number" id="postCount" step="1" value="0" />
+            </div>
+
+
+
+            <button type="button" onclick="calculateNeededPosts()">计算所需劝学帖数量</button>
+        </form>
+
+        <div class="result" id="result"></div>
+
+        <!-- 说明板块 -->
+        <div class="info-panel">
+            <h2>说明</h2>
+            <p><strong>词条解释：</strong><br>
+                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余时长：</strong>百家争鸣活动界面，大红绸缎标题：“百家第一学派交流大会”下方的活动日期处，括号中可看到剩余天数与时长。<br>
+                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前基础积分：</strong>活动开始前攒的，点完后会有个基础积分，在百家争鸣活动界面查看。<br>
+                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目标积分：</strong>冲榜或者完成任务，要达到的积分数。<br>
+                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个劝学帖可招募的学生数量：</strong>点开诸子百家的界面后，点开右下角的“劝学帖”可查看数量和可招募的学生数。<br>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function calculateNeededPosts() {
+            const currentBase = parseFloat(document.getElementById("currentBase").value);
+            const target = parseFloat(document.getElementById("target").value);
+            const studentsPerPost = parseFloat(document.getElementById("studentsPerPost").value);
+            const postCount = parseInt(document.getElementById("postCount").value);
+            const remainingDays = parseInt(document.getElementById("remainingDays").value);
+            const remainingHours = parseInt(document.getElementById("remainingHours").value);
+
+            if (
+                isNaN(currentBase) || isNaN(target) || isNaN(studentsPerPost) || isNaN(postCount) ||
+                isNaN(remainingDays) || isNaN(remainingHours) || studentsPerPost <= 0
+            ) {
+                document.getElementById("result").innerText = "请填写所有有效数据。";
+                return;
+            }
+
+            const postPoints = (studentsPerPost * postCount) / 10000;
+            const currentTotal = currentBase + postPoints;
+            const remainingTimeInMinutes = (remainingDays * 24 * 60) + (remainingHours * 60);
+            const naturalGrowth = (remainingTimeInMinutes * studentsPerPost) / 10000;
+            const maxPoints = currentTotal + naturalGrowth;
+            const diff = target - maxPoints;
+
+            if (diff <= 0) {
+                document.getElementById("result").innerText =
+                    `当前积分 + 自然增长已足够达到目标积分！\n预计可达积分：${maxPoints.toFixed(2)} 万`;
+                return;
+            }
+
+            const neededPosts = Math.ceil((diff * 10000) / studentsPerPost);
+
+            document.getElementById("result").innerText =
+                `当前总积分为：${currentTotal.toFixed(2)} 万\n` +
+                `剩余自然增长积分为：${naturalGrowth.toFixed(2)} 万\n` +
+                `预计总积分为：${maxPoints.toFixed(2)} 万\n` +
+                `仍需使用劝学帖数量约：${neededPosts} 个`;
+        }
+    </script>
+</body>
+
+</html>
