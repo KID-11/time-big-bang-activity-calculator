@@ -47,17 +47,74 @@
         button:hover {
             background-color: #3f698b;
         }
+
+        /* 模态框样式 */
+        .modal {
+            display: block;
+            /* 默认显示 */
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal h2 {
+            margin-top: 0;
+        }
+
+        .modal button {
+            background-color: #4caf50;
+            margin-top: 20px;
+        }
+
+        .modal button:hover {
+            background-color: #3c8d40;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <!-- 弹窗 -->
+    <div id="disclaimerModal" class="modal">
+        <div class="modal-content">
+            <h2 style="text-align: center;">说明</h2>
+            <p>
+                <strong>系统搭建：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-周末初八】
+            </p>
+            <p>
+                <strong>免责声明：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
+                网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
+                用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。
+            </p>
+            <button onclick="closeModal()">我已知晓</button>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="display: none;">
         <h1>时光大爆炸活动计算器</h1>
 
         <button onclick="window.location.href='dgdz.html'">时代大进化(帝国缔造)</button>
         <button onclick="window.location.href='zj.html'">时光偶像团(知己好感度)</button>
         <button onclick="window.location.href='ys.html'">繁华盛世(夜市积分)</button>
         <button onclick="window.location.href='zzbj.html'">百家争鸣(诸子百家)</button>
+        <button onclick="window.location.href='zszz.html'">众神之子(史前埃及)</button>
         <button onclick="window.location.href='sg.html'">谁主三国(求三日总军功)</button>
         <button onclick="window.location.href='sg_bf.html'">谁主三国(求差距兵符)</button>
 
@@ -69,17 +126,32 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-周末初八】
             </p>
             <p>
-                <strong>声明：<br></strong>
+                <strong>说明：<br></strong>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
                 网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
                 用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。<br>
             </p>
-            <p>
-                <strong>提示：<br></strong>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直接点击无法访问时,请复制网址于浏览器打开。<br>
-            </p>
         </div>
     </div>
+
+    <script>
+        function closeModal() {
+            document.getElementById("disclaimerModal").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+        }
+
+        // 记住用户是否已点击过（使用localStorage）
+        // window.onload = function () {
+        //   if (localStorage.getItem("agreed") === "true") {
+        //     closeModal();
+        //   }
+        // };
+        // function closeModal() {
+        //   document.getElementById("disclaimerModal").style.display = "none";
+        //   document.getElementById("mainContent").style.display = "block";
+        //   localStorage.setItem("agreed", "true");
+        // }
+    </script>
 </body>
 
 </html>
