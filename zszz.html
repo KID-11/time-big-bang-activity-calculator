@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>众神之子供奉值计算器</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style>
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
+
+        <h1>众神之子（史前埃及）供奉值计算器</h1>
+
+        <div class="input-container">
+            <label for="god">请选择供奉的神明：</label>
+            <select id="god">
+                <option value="sun">太阳神</option>
+                <option value="wind">风神</option>
+                <option value="rain">雨神</option>
+                <option value="sky">天空之神</option>
+                <option value="earth">大地之神</option>
+                <option value="storm">风暴之神</option>
+                <option value="death">亡者之神</option>
+                <option value="fertility">生育之神</option>
+                <option value="agriculture">农业之神</option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="currentValue">目前供奉值：</label>
+            <input type="number" id="currentValue" placeholder="例如：5000,25000等" />
+        </div>
+
+        <div class="input-container">
+            <label for="targetValue">目标供奉值：</label>
+            <input type="number" id="targetValue" placeholder="例如：6000,35000等" />
+        </div>
+
+        <div class="input-container">
+            <label for="sandCount">已有时之沙数量：</label>
+            <input type="number" id="sandCount" />
+        </div>
+
+        <div class="input-container">
+            <label for="tributePerSand">每个时之沙可产出贡品数量：</label>
+            <input type="number" id="tributePerSand" />
+        </div>
+
+        <button onclick="calculateRequiredSand()">计算所需时之沙数量</button>
+
+        <div class="result" id="result"></div>
+
+        <!-- 说明板块 -->
+        <div class="info-panel">
+            <h2>说明</h2>
+            <p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bug来源：</strong>
+                运气也是实力的一部分，
+                本计算已经模拟了权重占比，
+                运气真的只能靠自己了，
+                误差一般不会特别巨大，
+                除非你是真的点背or欧皇<预祝都是后者>。
+            </p>
+
+        </div>
+    </div>
+
+    <script>
+        const godData = {
+            sun: { name: "太阳神", probability: 0.02, value: 500, roundTo: 500 },
+            wind: { name: "风神", probability: 0.05, value: 200, roundTo: 200 },
+            rain: { name: "雨神", probability: 0.05, value: 200, roundTo: 200 },
+            sky: { name: "天空之神", probability: 0.12, value: 80, roundTo: 80 },
+            earth: { name: "大地之神", probability: 0.12, value: 80, roundTo: 80 },
+            storm: { name: "风暴之神", probability: 0.16, value: 60, roundTo: 60 },
+            death: { name: "亡者之神", probability: 0.16, value: 60, roundTo: 60 },
+            fertility: { name: "生育之神", probability: 0.16, value: 60, roundTo: 60 },
+            agriculture: { name: "农业之神", probability: 0.16, value: 60, roundTo: 60 }
+        };
+
+        function calculateRequiredSand() {
+            const godKey = document.getElementById("god").value;
+            const currentValue = parseInt(document.getElementById("currentValue").value);
+            const targetValue = parseInt(document.getElementById("targetValue").value);
+            const sandCount = parseInt(document.getElementById("sandCount").value);
+            const tributePerSand = parseInt(document.getElementById("tributePerSand").value);
+
+            const god = godData[godKey];
+
+            if (!god || isNaN(currentValue) || isNaN(targetValue) || isNaN(sandCount) || isNaN(tributePerSand) || tributePerSand <= 0) {
+                document.getElementById("result").innerText = "请填写有效的输入值。";
+                return;
+            }
+
+            const diff = targetValue - currentValue;
+            if (diff <= 0) {
+                document.getElementById("result").innerText = `如果你运气在正常概率波动范围内，\n此时你已经足够达成目标供奉值，无需额外时之沙！`;
+                return;
+            }
+
+            const expectedValuePerPray = god.probability * god.value;
+            const requiredPrays = diff / expectedValuePerPray;
+            const requiredTribute = requiredPrays * 100;
+
+            const ownedTribute = sandCount * tributePerSand;
+            const valueFromOwned = (ownedTribute / 100) * expectedValuePerPray;
+            const estimatedFinalValue = currentValue + Math.floor(valueFromOwned);
+            const roundedValue = Math.round(estimatedFinalValue / god.roundTo) * god.roundTo;
+
+
+            if (estimatedFinalValue >= targetValue) {
+                document.getElementById("result").innerText =
+                    `你供奉的神明为：【${god.name}】\n` +
+                    `最终依据权重预计供奉值为：${estimatedFinalValue}，约为 ${roundedValue}\n` +
+                    `如果你运气在正常概率波动范围内，\n此时你已经足够达成目标供奉值，无需额外时之沙！ `;
+                return;
+            }
+
+            const tributeGap = requiredTribute - ownedTribute;
+            const requiredSand = Math.ceil(tributeGap / tributePerSand);
+
+            document.getElementById("result").innerText =
+                `你供奉的神明为：【${god.name}】\n` +
+                `最终依据权重预计供奉值为：${estimatedFinalValue}，约为 ${roundedValue}\n` +
+                `预计还需时之沙数量为：${requiredSand} 个`;
+        }
+    </script>
+</body>
+
+</html>
