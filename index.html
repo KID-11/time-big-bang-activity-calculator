@@ -1,158 +1,280 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f5;
-            padding: 30px 0;
-            margin: 0;
-        }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap");
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+      body {
+        font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f0f5;
+        padding: 30px 0;
+        margin: 0;
+      }
 
-        h1 {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 20px;
-        }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #4c89af;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 15px;
-        }
+      /* ======== 新标题样式 ======== */
+      h1 {
+        font-size: 30px;
+        color: #2c3e50;
+        margin-bottom: 35px;
+        position: relative;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
 
-        button:hover {
-            background-color: #3f698b;
-        }
+      h1::before,
+      h1::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 28%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #3498db, transparent);
+      }
 
-        /* 模态框样式 */
-        .modal {
-            display: block;
-            /* 默认显示 */
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
+      h1::before {
+        left: 0;
+      }
 
-        .modal-content {
-            background-color: #fff;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+      h1::after {
+        right: 0;
+        z-index: 0;
+      }
 
-        .modal h2 {
-            margin-top: 0;
-        }
+      h1 span {
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(90deg, #eaf6ff, #f9fbff);
+        padding: 8px 18px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.15);
+        z-index: 1;
+      }
 
-        .modal button {
-            background-color: #4caf50;
-            margin-top: 20px;
-        }
+      h1 span::before {
+        content: "✨";
+        margin-right: 6px;
+      }
 
-        .modal button:hover {
-            background-color: #3c8d40;
-        }
+      h1 span::after {
+        content: "💫";
+        margin-left: 6px;
+
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(145deg, #2980b9, #3498db);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      button:hover {
+        background: linear-gradient(145deg, #3498db, #2980b9);
+        transform: translateY(-2px);
+      }
+
+      /* 模态框样式 */
+      .modal {
+        display: block;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal h2 {
+        margin-top: 0;
+      }
+
+      .modal button {
+        background-color: #4caf50;
+        margin-top: 20px;
+      }
+
+      .modal button:hover {
+        background-color: #3c8d40;
+      }
+
+      /* ========= 按钮分组 + 网格 ========= */
+      .button-group {
+        text-align: left;
+        margin-bottom: 30px;
+      }
+
+      .button-group h3 {
+        color: #2c3e50;
+        font-size: 18px;
+        margin-bottom: 12px;
+        border-left: 4px solid #2980b9;
+        padding-left: 8px;
+        font-weight: 600;
+      }
+
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 15px;
+      }
+
+      /* ========= 信息面板 ========= */
+      .info-panel {
+        margin-top: 30px;
+        padding: 20px;
+        background: linear-gradient(145deg, #f9f9f9, #f1f8e9);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-panel h2 {
+        font-size: 22px;
+        color: #2c3e50;
+        margin-bottom: 15px;
+      }
+
+      .info-panel p {
+        font-size: 16px;
+        color: #7f8c8d;
+        line-height: 1.8;
+        text-align: left;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- 弹窗 -->
     <div id="disclaimerModal" class="modal">
-        <div class="modal-content">
-            <h2 style="text-align: center;">说明</h2>
-            <p>
-                <strong>系统搭建：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-白猫警长】
-            </p>
-            <p>
-                <strong>免责声明：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
-                网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
-                用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。
-            </p>
-            <button onclick="closeModal()">我已知晓</button>
-        </div>
+      <div class="modal-content">
+        <h2 style="text-align: center">📜说明</h2>
+        <p>
+          <strong>系统搭建：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-周末初八】
+        </p>
+        <p>
+          <strong>免责声明：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
+          网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
+          用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。
+        </p>
+        <p>
+          <strong>更新日志：<br /></strong>
+          2025.10.19.<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          新增“天朝上宝”基础里程任务计算，“天朝上宝”御赏值冲榜任务计算。
+          <br />
+        </p>
+        <button onclick="closeModal()">我已知晓</button>
+      </div>
     </div>
 
-    <div class="container" id="mainContent" style="display: none;">
-        <h1>时光大爆炸活动计算器</h1>
+    <!-- 主内容 -->
+    <div class="container" id="mainContent" style="display: none">
+      <h1><span>时光大爆炸活动计算器</span></h1>
 
-        <button onclick="window.location.href='dgdz.html'">时代大进化(帝国缔造)</button>
-        <button onclick="window.location.href='zj.html'">时光偶像团(知己好感度)</button>
-        <button onclick="window.location.href='ys.html'">繁华盛世(夜市积分)</button>
-        <button onclick="window.location.href='zzbj.html'">百家争鸣(诸子百家)</button>
-        <button onclick="window.location.href='zszz.html'">众神之子(史前埃及)</button>
-        <button onclick="window.location.href='sg.html'">谁主三国(求三日总军功)</button>
-        <button onclick="window.location.href='sg_bf.html'">谁主三国(求差距兵符)</button>
-
-        <!-- 说明板块 -->
-        <div class="info-panel">
-            <h2>说明</h2>
-            <p>
-                <strong>系统搭建：<br></strong>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-白猫警长】
-            </p>
-            <p>
-                <strong>说明：<br></strong>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
-                网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
-                用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。<br>
-            </p>
+      <!-- 分类按钮组 -->
+      <div class="button-group">
+        <h3>核心活动</h3>
+        <div class="button-grid">
+          <button onclick="window.location.href='dgdz.html'">
+            时代大进化(帝国缔造)
+          </button>
+          <button onclick="window.location.href='zj.html'">
+            时光偶像团(知己好感度)
+          </button>
         </div>
+      </div>
+
+      <div class="button-group">
+        <h3>积分活动</h3>
+        <div class="button-grid">
+          <button onclick="window.location.href='zzbj.html'">
+            百家争鸣(诸子百家)
+          </button>
+          <button onclick="window.location.href='ys.html'">
+            繁华盛世(夜市积分)
+          </button>
+          <button onclick="window.location.href='zszz.html'">
+            众神之子(史前埃及)
+          </button>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <h3>天朝上宝</h3>
+        <div class="button-grid">
+          <button onclick="window.location.href='tcsb.html'">御赏值冲榜</button>
+          <button onclick="window.location.href='tcsb_base.html'">
+            500玉里程任务
+          </button>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <h3>谁主三国</h3>
+        <div class="button-grid">
+          <button onclick="window.location.href='sg.html'">三日总军功</button>
+          <button onclick="window.location.href='sg_bf.html'">
+            冲榜兵符计算
+          </button>
+        </div>
+      </div>
+
+      <!-- 说明板块 -->
+      <div class="info-panel">
+        <h2>📜说明</h2>
+        <p>
+          <strong>系统搭建：<br /></strong>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-白猫警长】
+        </p>
+        <p>
+          <strong>说明：<br /></strong>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
+          网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
+          用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。<br />
+        </p>
+      </div>
     </div>
 
     <script>
-        function closeModal() {
-            document.getElementById("disclaimerModal").style.display = "none";
-            document.getElementById("mainContent").style.display = "block";
-        }
-
-        // 记住用户是否已点击过（使用localStorage）
-        // window.onload = function () {
-        //   if (localStorage.getItem("agreed") === "true") {
-        //     closeModal();
-        //   }
-        // };
-        // function closeModal() {
-        //   document.getElementById("disclaimerModal").style.display = "none";
-        //   document.getElementById("mainContent").style.display = "block";
-        //   localStorage.setItem("agreed", "true");
-        // }
+      function closeModal() {
+        document.getElementById("disclaimerModal").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      }
     </script>
-</body>
-
+  </body>
 </html>
-
