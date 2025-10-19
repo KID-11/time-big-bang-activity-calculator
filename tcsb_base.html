@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>天朝上宝（里程）计算</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style>
+      .info-panel {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .info-panel h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+      .info-panel p {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.8;
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <button
+        class="back-home-button"
+        onclick="window.location.href='index.html'"
+      >
+        回到首页
+      </button>
+
+      <h1>天朝上宝（里程）计算</h1>
+
+      <div class="input-container">
+        <label for="currentMileageWan">当前已跑里程（万里）：</label>
+        <input
+          type="number"
+          id="currentMileageWan"
+          placeholder="例如: 7.36"
+          min="0"
+          step="0.01"
+        />
+      </div>
+
+      <div class="input-container">
+        <label for="distancePerRound">每轮里程（里）：</label>
+        <input
+          type="number"
+          id="distancePerRound"
+          placeholder="例如: 4000"
+          min="1"
+        />
+      </div>
+
+      <div class="input-container">
+        <label for="cityCount">每轮路线城池数量：</label>
+        <input type="number" id="cityCount" placeholder="例如: 2" min="0" />
+      </div>
+
+      <div class="input-container">
+        <label for="speed">车速：</label>
+        <input type="number" id="speed" placeholder="例如: 258" min="1" />
+      </div>
+
+      <div class="input-container">
+        <label for="bunCount">打算使用的菔力饼数量：</label>
+        <input type="number" id="bunCount" placeholder="例如: 150" min="0" />
+      </div>
+
+      <button onclick="calcMileage()">计算所需大饼</button>
+
+      <div class="result" id="result"></div>
+
+      <div class="info-panel">
+        <h2>说明</h2>
+        <p>
+          <strong>前提：</strong>
+          已开通了12元的“八方聚财”特权，即可以使用【自动贸易】功能！
+        </p>
+        <p>
+          <strong>每轮里程：</strong>
+          打开“自动贸易”界面，选择固定路线后，界面的左上角可以看到每轮里程。
+        </p>
+        <p>
+          <strong>每轮固定路线的城池数量：</strong>
+          打开“自动贸易”界面，选择固定路线后，设置了几座城就填几，例如：临海-青州，就是2座城。
+        </p>
+        <p>
+          <strong>自己车子的速度：</strong>
+          打开“商队”界面（每天看广告领菔力饼的地方的右边就是），在属性详情处可看到速度。
+        </p>
+        <p>
+          <strong>误差说明：</strong>
+          结果为期望值，实际会有波动，算法已尽力优化，误差大概在10个饼以内。
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function calcMileage() {
+        const MAX_TARGET = 100000;
+
+        const currentMileageWan =
+          parseFloat(document.getElementById("currentMileageWan").value) || 0;
+        const routeDistance =
+          parseFloat(document.getElementById("distancePerRound").value) || 0;
+        const speed = parseFloat(document.getElementById("speed").value) || 0;
+        const cityCount =
+          parseFloat(document.getElementById("cityCount").value) || 0;
+        const bunsOwned =
+          parseFloat(document.getElementById("bunCount").value) || 0;
+        const resultEl = document.getElementById("result");
+
+        if (
+          routeDistance <= 0 ||
+          speed <= 0 ||
+          currentMileageWan < 0 ||
+          cityCount < 0 ||
+          bunsOwned < 0
+        ) {
+          resultEl.innerText = "请检查输入参数：所有数值必须为正数或零。";
+          return;
+        }
+
+        const currentMileage = currentMileageWan * 10000;
+        const remainMileage = Math.max(0, MAX_TARGET - currentMileage);
+
+        if (remainMileage === 0) {
+          resultEl.innerText = "🎉 目标已达成，无需补充菔力饼！";
+          return;
+        }
+
+        const timePerRound = routeDistance / speed + cityCount;
+
+        const totalTime = (remainMileage / routeDistance) * timePerRound;
+
+        const bunsRequiredTotal = totalTime * 2;
+
+        const bunsStillNeeded = Math.max(
+          0,
+          Math.ceil(bunsRequiredTotal - bunsOwned)
+        );
+
+        resultEl.innerText =
+          `目标总里程：100000 里（10 w）\n` +
+          `剩余里程：${(remainMileage / 10000).toFixed(2)} \n` +
+          `完成剩余里程所需总时间：${totalTime.toFixed(2)} 小时\n` +
+          `➡️ 仍需补充的菔力饼：${bunsStillNeeded.toLocaleString(
+            "zh-CN"
+          )} 个\n\n`;
+      }
+    </script>
+  </body>
+</html>

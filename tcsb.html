@@ -1,0 +1,203 @@
+<!--  天朝上宝（御赏值） -->
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>天朝上宝（御赏值）计算</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style>
+      .info-panel {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .info-panel h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+      .info-panel p {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.8;
+        text-align: left;
+      }
+      .result {
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <button
+        class="back-home-button"
+        onclick="window.location.href='index.html'"
+      >
+        回到首页
+      </button>
+
+      <h1>天朝上宝（御赏值）计算</h1>
+
+      <div class="input-container">
+        <label for="currentScoreWan">现有的御赏值（万）：</label>
+        <input
+          type="number"
+          id="currentScoreWan"
+          placeholder="例如: 1.25"
+          min="0"
+          step="0.01"
+        />
+      </div>
+
+      <div class="input-container">
+        <label for="targetScoreWan">目标御赏值（万）：</label>
+        <input
+          type="number"
+          id="targetScoreWan"
+          placeholder="例如: 1.85 或 15.27"
+          min="0"
+          step="0.01"
+        />
+      </div>
+
+      <div class="input-container">
+        <label for="distancePerRound">每轮里程（里）：</label>
+        <input
+          type="number"
+          id="distancePerRound"
+          placeholder="例如: 4800"
+          min="1"
+        />
+      </div>
+
+      <div class="input-container">
+        <label for="speed">自己车子的速度：</label>
+        <input type="number" id="speed" placeholder="例如: 300" min="1" />
+      </div>
+
+      <div class="input-container">
+        <label for="cityCount">每轮固定路线的城池数量：</label>
+        <input type="number" id="cityCount" placeholder="例如: 2" min="0" />
+      </div>
+
+      <div class="input-container">
+        <label for="bunCount">已有的菔力饼数量：</label>
+        <input type="number" id="bunCount" placeholder="例如: 12345" min="0" />
+      </div>
+
+      <button onclick="calcTCSB()">计算御赏值</button>
+
+      <div class="result" id="result"></div>
+
+      <div class="info-panel">
+        <h2>说明</h2>
+        <p>
+          <strong>前提：</strong>
+          已开通了12元的“八方聚财”特权，即可以使用【自动贸易】功能！
+        </p>
+        <p>
+          <strong>每轮里程：</strong>
+          打开“自动贸易”界面，选择固定路线后，界面的左上角可以看到每轮里程。
+        </p>
+        <p>
+          <strong>每轮固定路线的城池数量：</strong>
+          打开“自动贸易”界面，选择固定路线后，设置了几座城就填几，例如：临海-青州，就是2座城。
+        </p>
+        <p>
+          <strong>自己车子的速度：</strong>
+          打开“商队”界面（每天看广告领菔力饼的地方的右边就是），在属性详情处可看到速度。
+        </p>
+        <p>
+          <strong>误差说明：</strong>
+          结果为期望值，实际会有波动，算法已优化，误差7%左右，受概率影响本值仅供参考。
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function calcTCSB() {
+        const currentScoreWan =
+          parseFloat(document.getElementById("currentScoreWan").value) || 0;
+        const targetRaw = (
+          document.getElementById("targetScoreWan").value || ""
+        ).trim();
+        const hasTarget = targetRaw !== "";
+        const targetScoreWan = hasTarget ? parseFloat(targetRaw) || 0 : 0;
+
+        const routeDistance =
+          parseFloat(document.getElementById("distancePerRound").value) || 0;
+        const caravanSpeed =
+          parseFloat(document.getElementById("speed").value) || 0;
+        const cityCount =
+          parseFloat(document.getElementById("cityCount").value) || 0;
+        const bunsOwned =
+          parseFloat(document.getElementById("bunCount").value) || 0;
+
+        const resultEl = document.getElementById("result");
+
+        if (
+          routeDistance <= 0 ||
+          caravanSpeed <= 0 ||
+          currentScoreWan < 0 ||
+          (!hasTarget ? false : targetScoreWan < 0) ||
+          cityCount < 0 ||
+          bunsOwned < 0
+        ) {
+          resultEl.innerText =
+            "请检查输入：里程/速度需为正数，其余为不小于 0 的数字。";
+          return;
+        }
+
+        const currentScore = currentScoreWan * 10000;
+        const targetScore = targetScoreWan * 10000;
+
+        const pointsPerDraw = 470;
+        const timePerTrip = routeDistance / caravanSpeed + cityCount; 
+        if (timePerTrip <= 0) {
+          resultEl.innerText = "参数异常：单次时间需大于 0。";
+          return;
+        }
+
+        const pointsPerBun =
+          (routeDistance / 1000 / timePerTrip) * pointsPerDraw;
+        const totalTrips = bunsOwned / 2;
+        const totalDistanceK =
+          (totalTrips / timePerTrip) * (routeDistance / 1000);
+        const gainScore = totalDistanceK * pointsPerDraw;
+        const finalScore = currentScore + gainScore;
+
+        const gainScoreWan = gainScore / 10000;
+        const finalScoreWan = finalScore / 10000;
+
+        if (!hasTarget) {
+          resultEl.innerText =
+            `还可以得到的御赏值：${gainScoreWan.toFixed(2)} 万\n` +
+            `最终估算的御赏值：${finalScoreWan.toFixed(2)} 万`;
+          return;
+        }
+
+        if (finalScore >= targetScore) {
+          resultEl.innerText =
+            `还可以得到的御赏值：${gainScoreWan.toFixed(2)} 万\n` +
+            `最终估算的御赏值：${finalScoreWan.toFixed(2)} 万\n` +
+            `结论：已足够达到目标，无需补充菔力饼。`;
+        } else {
+          const scoreNeeded = targetScore - currentScore;
+          const additionalBunsRaw =
+            2 * (scoreNeeded / pointsPerBun) - bunsOwned;
+          const additionalBuns = Math.max(0, Math.ceil(additionalBunsRaw));
+          resultEl.innerText =
+            `还可以得到的御赏值：${gainScoreWan.toFixed(2)} 万\n` +
+            `最终估算的御赏值：${finalScoreWan.toFixed(2)} 万\n` +
+            `➡️ 仍需补充的菔力饼：${additionalBuns.toLocaleString(
+              "zh-CN"
+            )} 个`;
+        }
+      }
+    </script>
+  </body>
+</html>
