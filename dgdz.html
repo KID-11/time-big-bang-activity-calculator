@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>帝国缔造活动积分计算器</title>
+    <title>时代大进化积分计算器</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         .info-panel {
@@ -36,7 +36,7 @@
         <!-- 在页面的右上角添加"回到首页"按钮 -->
         <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
 
-        <h1>帝国缔造活动积分计算器</h1>
+        <h1>时代大进化积分计算器</h1>
 
         <!-- 输入区域 -->
         <div class="input-container">
@@ -69,11 +69,6 @@
             <input type="number" id="advisorSelections" placeholder="输入顾问选拔次数" min="0">
         </div>
 
-        <div class="input-container">
-            <label for="patrolEnergy">输入【巡视体力道具（那个紫丹）】的数量：</label>
-            <input type="number" id="patrolEnergy" placeholder="输入巡视体力道具数量" min="0">
-        </div>
-
         <button onclick="calculatePoints()">计算积分</button>
 
         <!-- 结果显示区域 -->
@@ -82,7 +77,7 @@
         <!-- 说明板块 -->
         <div class="info-panel">
             <h2>说明</h2>
-            <!-- <p><strong>维护人员：</strong>大饼【机械13服-白猫警长】</p> -->
+            <!-- <p><strong>维护人员：</strong>大饼【机械13服周末初八】</p> -->
             <p><strong>bug说明：</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;底层只实现了基本道具的可转换的积分，对于随时间增长的积分亦或是其他资源获取渠道的积分，并未统计也不方便统计，
                 计算结果为你输入的资源都用完后得到的积分，实际积分肯定高于此计算所得积分，以下列举其他积分增长途径：<br>
@@ -102,16 +97,14 @@
             let techResearchCardCount = parseInt(document.getElementById("techResearchCardCount").value) || 0;
             let fineResearchCardCount = parseInt(document.getElementById("fineResearchCardCount").value) || 0;
             let advisorSelections = parseInt(document.getElementById("advisorSelections").value) || 0;
-            let patrolEnergy = parseInt(document.getElementById("patrolEnergy").value) || 0;
 
             // 定义常量
-            const RESOURCE_POINTS_PER_MINUTE = 10; // 每分钟10积分
-            const ADVISOR_POINTS_PER_2_SELECTIONS = 180; // 每2次顾问选拔获得180积分
-            const LAND_POINTS_PER_10000 = 150; // 每10,000土地获得150积分
-            const PATROL_ENERGY_LAND_POINTS = 16000.0; // 每个巡视体力道具获得16000土地
+            const RESOURCE_POINTS_PER_MINUTE = 100; // 每分钟100积分
+            const ADVISOR_POINTS_PER_2_SELECTIONS = 1800; // 每2次顾问选拔获得1800积分
+            const LAND_POINTS_PER_10000 = 1500; // 每10,000空闲土地获得1500积分
 
-            const TECH_RESEARCH_POINTS_PER_MINUTE = 75; // 每分钟技术研究加速卡积分
-            const FINE_RESEARCH_POINTS_PER_MINUTE = 100; // 每分钟精细研究加速卡积分
+            const TECH_RESEARCH_POINTS_PER_MINUTE = 800; // 每分钟技术研究积分
+            const FINE_RESEARCH_POINTS_PER_MINUTE = 1000; // 每分钟精细研究积分
 
             // 计算积分
             let totalPoints = 0;
@@ -132,7 +125,16 @@
             // 顾问选拔积分
             totalPoints += Math.floor(advisorSelections / 2) * ADVISOR_POINTS_PER_2_SELECTIONS;
 
-            // 计算巡视体力道具带来的土地积分
+            // 最终积分
+            let pointsInWan = totalPoints / 10000.0;
+
+            // 显示结果
+            document.getElementById("result").innerText = `至少获得的积分为：【 ${pointsInWan.toFixed(2)} 】万`;
+        }
+    </script>
+</body>
+
+</html>
             let totalLand = patrolEnergy * PATROL_ENERGY_LAND_POINTS; // 土地总数
             totalPoints += (totalLand / 10000.0) * LAND_POINTS_PER_10000;
 
@@ -146,4 +148,5 @@
 </body>
 
 </html>
+
 
