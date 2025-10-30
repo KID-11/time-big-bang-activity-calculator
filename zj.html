@@ -2,32 +2,31 @@
 <html lang="zh">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>知己活动好感度计算</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
     <div class="container">
-        <!-- 在页面的右上角添加"回到首页"按钮 -->
         <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
         
         <h1>知己活动好感度计算</h1>
         <form id="giftForm">
             <div class="input-container">
                 <label for="flowerCount">请输入【玫瑰】的数量：</label>
-                <input type="number" id="flowerCount" value="0" min="0">
+                <input type="number" id="flowerCount" placeholder="如 9876 或 1.25（自动匹配单位：万）" min="0" />
             </div>
 
             <div class="input-container">
                 <label for="hairpinCount">请输入【簪子】的数量：</label>
-                <input type="number" id="hairpinCount" value="0" min="0">
+                <input type="number" id="hairpinCount" placeholder="如 9876 或 1.25（自动匹配单位：万）" min="0" />
             </div>
 
             <div class="input-container">
                 <label for="jadeCount">请输入【玉佩】的数量：</label>
-                <input type="number" id="jadeCount" value="0" min="0">
+                <input type="number" id="jadeCount" placeholder="如 9876 或 1.25（自动匹配单位：万）" min="0" />
             </div>
 
             <button type="button" onclick="calculateTotal()">计算好感度</button>
@@ -37,25 +36,37 @@
     </div>
 
     <script>
-        // 定义物品价格
-        const flowerPrice = 1;
-        const hairpinPrice = 3;
-        const jadePrice = 10;
-
-        // 计算好感度
-        function calculateTotal() {
-            // 获取用户输入的数量
-            const flowerCount = parseInt(document.getElementById("flowerCount").value);
-            const hairpinCount = parseInt(document.getElementById("hairpinCount").value);
-            const jadeCount = parseInt(document.getElementById("jadeCount").value);
-
-            // 计算总价
-            const totalCost = flowerCount * flowerPrice + hairpinCount * hairpinPrice + jadeCount * jadePrice;
-
-            // 输出结果
-            document.getElementById("result").innerText = "好感度总值为：" + totalCost;
+    const flowerPrice = 1;
+    const hairpinPrice = 3;
+    const jadePrice = 10;
+        
+    function parseInputValue(value) {
+        value = value.toString().trim();
+        if (value === "") return 0; 
+        const num = parseFloat(value); 
+        if (value.includes(".") && !value.includes("万") && !value.includes("亿")) {
+            return num * 10000;  
         }
+        return isNaN(num) ? 0 : num;
+    }
+
+    function calculateTotal() {
+        const flowerCount = parseInputValue(document.getElementById("flowerCount").value);
+        const hairpinCount = parseInputValue(document.getElementById("hairpinCount").value);
+        const jadeCount = parseInputValue(document.getElementById("jadeCount").value);
+        const totalCost = flowerCount * flowerPrice + hairpinCount * hairpinPrice + jadeCount * jadePrice;
+        
+        let displayValue;
+        if (totalCost >= 100000000) {
+            displayValue = (totalCost / 100000000).toFixed(3) + "亿";
+        } else if (totalCost >= 10000) {
+            displayValue = (totalCost / 10000).toFixed(3) + "万";
+        } else {
+            displayValue = totalCost.toFixed(0);
+        }
+
+        document.getElementById("result").innerText = "好感度总值为：" + displayValue + "（即：" + totalCost.toLocaleString() + " ）";
+    }
     </script>
 </body>
-
 </html>
