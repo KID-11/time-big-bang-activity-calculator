@@ -47,32 +47,48 @@
         transform: translateY(-2px);
       }
 
-      /* 模态框样式 */
+      /* ========= 弹窗样式 ========= */
+      /* 弹窗容器 */
       .modal {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: fixed;
         z-index: 999;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto;
         background-color: rgba(0, 0, 0, 0.4);
       }
 
+      /* 弹窗内容 */
       .modal-content {
         background-color: #fff;
-        margin: 10% auto;
         padding: 20px;
         border: 1px solid #888;
         border-radius: 12px;
         width: 90%;
         max-width: 600px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
       }
 
       .modal h2 {
         margin-top: 0;
+        text-align: center;
+      }
+
+      /* 弹窗主体可滚动区域 */
+      .modal-body {
+        max-height: 400px; 
+        overflow-y: auto; 
+        padding-right: 10px;
+      }
+
+      .modal-body p {
+        text-align: left;
+        line-height: 1.7;
       }
 
       .modal button {
@@ -84,8 +100,7 @@
         background-color: #3c8d40;
       }
 
-      /* ========= 新增部分：按钮分组 + 网格 ========= */
-
+      /* ========= 按钮分组 + 网格 ========= */
       .button-group {
         text-align: left;
         margin-bottom: 30px;
@@ -106,7 +121,6 @@
       }
 
       /* ========= 信息面板 ========= */
-
       .info-panel {
         margin-top: 30px;
         padding: 20px;
@@ -131,40 +145,43 @@
   </head>
 
   <body>
-    <!-- 弹窗 -->
+    <!-- ========= 弹窗 ========= -->
     <div id="disclaimerModal" class="modal">
       <div class="modal-content">
-        <h2 style="text-align: center">说明</h2>
-        <p>
-          <strong>系统搭建：</strong><br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-白猫警长】
-        </p>
-        <p>
-          <strong>免责声明：</strong><br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
-          网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
-          用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。
-        </p>
-        <p>
-          <strong>更新日志：<br /></strong>
-          【2025.10.19】<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          新增“天朝上宝”基础里程任务计算，“天朝上宝”御赏值冲榜任务计算。
-          <br />
-          【2025.10.30】<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          修改时代大进化活动道具对应积分。
-          <br />
-        </p>
+        <h2>说明</h2>
+        <div class="modal-body">
+          <p>
+            <strong>系统搭建：</strong><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大饼【机械13服-白猫警长】
+          </p>
+          <p>
+            <strong>更新日志：<br /></strong>
+            【2025.10.19】<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ①新增：“天朝上宝”基础里程任务计算 <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ②新增：“天朝上宝”御赏值冲榜任务计算<br />
+            【2025.10.30】<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ①修改：时代大进化活动道具对应积分<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ②新增：“丝绸之路”通商时间计算器
+          </p>
+          <p>
+            <strong>免责声明：</strong><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站仅用于游戏《时光大爆炸》活动中的各项数据计算，旨在帮助玩家更好地规划和参与游戏活动，所有内容仅供玩家参考使用。
+            网站所涉及的所有数据及其他信息，均来源于游戏内的公开数据，未经授权，禁止用于商业用途。
+            用户在使用本站时，需遵守相关法律法规，任何未经授权的转载、复制、传播或使用，本站不承担相关法律责任。
+          </p>
+        </div>
         <button onclick="closeModal()">我已知晓</button>
       </div>
     </div>
 
-    <!-- 主内容 -->
+    <!-- ========= 主内容 ========= -->
     <div class="container" id="mainContent" style="display: none">
       <h1>时光大爆炸活动计算器</h1>
 
-      <!-- 分类按钮组 -->
       <div class="button-group">
         <h3>核心活动</h3>
         <div class="button-grid">
@@ -189,6 +206,9 @@
           <button onclick="window.location.href='zszz.html'">
             众神之子(史前埃及)
           </button>
+          <button onclick="window.location.href='sczl.html'">
+            丝绸之路(通商时间)
+          </button>
         </div>
       </div>
 
@@ -212,7 +232,6 @@
         </div>
       </div>
 
-      <!-- 说明板块 -->
       <div class="info-panel">
         <h2>说明</h2>
         <p>
