@@ -1,136 +1,238 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>时代大进化积分计算器</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
-        .info-panel {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f7f7f7;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .info-panel h2 {
-            font-size: 22px;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .info-panel p {
-            font-size: 16px;
-            color: #555;
-            line-height: 1.8;
-            text-align: left;
-        }
+      .info-panel {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .info-panel h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+      .info-panel p {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.8;
+        text-align: left;
+      }
     </style>
-</head>
-
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- 在页面的右上角添加"回到首页"按钮 -->
-        <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
+      <button
+        class="back-home-button"
+        onclick="window.location.href='index.html'"
+      >
+        回到首页
+      </button>
+      <h1>时代大进化积分计算器</h1>
 
-        <h1>时代大进化积分计算器</h1>
+      <div class="input-container">
+        <label for="currentPointsValue">你的【当前积分】数值</label>
+        <input
+          type="number"
+          id="currentPointsValue"
+          placeholder="如 5678 或 1.67（自动匹配单位：亿）"
+          step="0.01"
+          min="0"
+        />
+      </div>
 
-        <!-- 输入区域 -->
-        <div class="input-container">
-            <label for="randomResourceCard">输入【随机资源卡】的数量：</label>
-            <input type="number" id="randomResourceCard" placeholder="输入随机资源卡数量" min="0">
-        </div>
+      <div class="input-container">
+        <label for="randomResourceCard">【随机资源卡】数量</label>
+        <input
+          type="number"
+          id="randomResourceCard"
+          placeholder="如 5678 或 4.25（自动匹配单位：万）"
+          step="0.001"
+          min="0"
+        />
+      </div>
 
-        <div class="input-container">
-            <label for="selectedResourceCard">输入【自选资源卡】的数量：</label>
-            <input type="number" id="selectedResourceCard" placeholder="输入自选资源卡数量" min="0">
-        </div>
+      <div class="input-container">
+        <label for="selectedResourceCard">【自选资源卡】数量</label>
+        <input
+          type="number"
+          id="selectedResourceCard"
+          placeholder="如 1234 或 1.25（自动匹配单位：万）"
+          step="0.001"
+          min="0"
+        />
+      </div>
 
-        <div class="input-container">
-            <label for="landDeed">输入【地契】的数量：</label>
-            <input type="number" id="landDeed" placeholder="输入地契数量" min="0">
-        </div>
+      <div class="input-container">
+        <label for="landDeed">【地契】数量</label>
+        <input
+          type="number"
+          id="landDeed"
+          placeholder="如 3456 或 1.002（自动匹配单位：万）"
+          step="0.001"
+          min="0"
+        />
+      </div>
 
-        <div class="input-container">
-            <label for="techResearchCardCount">输入【用于技术研究的加速卡】数量：</label>
-            <input type="number" id="techResearchCardCount" placeholder="输入技术研究的加速卡数量" min="0">
-        </div>
+      <div class="input-container">
+        <label for="techResearchCardCount"
+          >【用于技术研究的加速卡】数量</label
+        >
+        <input
+          type="number"
+          id="techResearchCardCount"
+          placeholder="如 5000 或 1.25（自动匹配单位：万）"
+          step="0.001"
+          min="0"
+        />
+      </div>
 
-        <div class="input-container">
-            <label for="fineResearchCardCount">输入【用于精细研究的加速卡】数量：</label>
-            <input type="number" id="fineResearchCardCount" placeholder="输入精细研究的加速卡数量" min="0">
-        </div>
+      <div class="input-container">
+        <label for="fineResearchCardCount"
+          >【用于精细研究的加速卡】数量</label
+        >
+        <input
+          type="number"
+          id="fineResearchCardCount"
+          placeholder="如 3200 或 0.8（自动匹配单位：万）"
+          step="0.001"
+          min="0"
+        />
+      </div>
 
-        <div class="input-container">
-            <label for="advisorSelections">输入【顾问选拔】的次数：</label>
-            <input type="number" id="advisorSelections" placeholder="输入顾问选拔次数" min="0">
-        </div>
+      <div class="input-container">
+        <label for="advisorSelections">【顾问选拔】次数</label>
+        <input
+          type="number"
+          id="advisorSelections"
+          placeholder="如 123456"
+          step="0.001"
+          min="0"
+        />
+      </div>
 
-        <button onclick="calculatePoints()">计算积分</button>
+      <button onclick="calculatePoints()">计算积分</button>
 
-        <!-- 结果显示区域 -->
-        <div class="result" id="result"></div>
+      <div class="result" id="result"></div>
 
-        <!-- 说明板块 -->
-        <div class="info-panel">
-            <h2>说明</h2>
-            <!-- <p><strong>维护人员：</strong>大饼【机械13服周末初八】</p> -->
-            <p><strong>bug说明：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;底层只实现了基本道具的可转换的积分，对于随时间增长的积分亦或是其他资源获取渠道的积分，并未统计也不方便统计，
-                计算结果为你输入的资源都用完后得到的积分，实际积分肯定高于此计算所得积分，以下列举其他积分增长途径：<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;领地资源：</strong>从活动开始即随时间增长，相当于有22h=1320min=1.32万基础积分，未统计入内。<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术研究(精研同理)：</strong>虽用可用加速卡，但卡用完之后再开的技术研究也是随着时间进行积分的，有时或许甚至未开技术研究等，此处无法统计。<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;土地获取：</strong>渠道还有其他，例如征战，赐福，随时间增长的巡视次数等，故此处不好统计。<br>
-            </p>
-        </div>
+      <div class="info-panel">
+        <h2>说明</h2>
+        <p>
+          <strong>最优使用情况：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于计算当下的积分情况，从而决定是否冲榜。<br />
+          <strong>误差说明：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;底层实现了基本道具的可转换的积分，对于随时间增长的积分亦或是其他资源获取渠道的积分，并未统计也不方便统计，
+          计算结果为你输入的资源都用完后得到的积分，实际积分肯定高于此计算所得积分。以下列举其他积分增长途径：<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;领地资源：</strong
+          >从活动开始即随时间增长，相当于有22h=1320min=1.32万基础积分，未统计入内。<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术研究(精研同理)：</strong
+          >虽用可用加速卡，但卡用完之后再开的技术研究也是随着时间进行积分的，有时或许甚至未开技术研究等，此处无法统计。<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;土地获取：</strong
+          >渠道还有其他，例如征战，赐福，随时间增长的巡视次数等，故此处不好统计。<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未见尾数：</strong
+          >在输入道具时，如果是1.25万，则计算使用为12500，但你实际可能有12566的道具（而游戏只显示1.25万），所以存在尾数未算进去的情况。<br />
+        </p>
+      </div>
     </div>
 
     <script>
-        function calculatePoints() {
-            // 获取用户输入的值
-            let randomResourceCard = parseInt(document.getElementById("randomResourceCard").value) || 0;
-            let selectedResourceCard = parseInt(document.getElementById("selectedResourceCard").value) || 0;
-            let landDeed = parseInt(document.getElementById("landDeed").value) || 0;
-            let techResearchCardCount = parseInt(document.getElementById("techResearchCardCount").value) || 0;
-            let fineResearchCardCount = parseInt(document.getElementById("fineResearchCardCount").value) || 0;
-            let advisorSelections = parseInt(document.getElementById("advisorSelections").value) || 0;
+      function detectUnitFromUserInput(val) {
+        const n = parseFloat(val);
+        if (isNaN(n) || n < 0) return "wan"; 
+        return n >= 100 ? "wan" : "yi";
+      }
 
-            // 定义常量
-            const RESOURCE_POINTS_PER_MINUTE = 100; // 每分钟100积分
-            const ADVISOR_POINTS_PER_2_SELECTIONS = 1800; // 每2次顾问选拔获得1800积分
-            const LAND_POINTS_PER_10000 = 1500; // 每10,000空闲土地获得1500积分
+      function toPointsFromUserInput(val) {
+        const n = parseFloat(val);
+        if (isNaN(n) || n < 0) return 0;
+        return n >= 100 ? n * 10000 : n * 100000000;
+      }
 
-            const TECH_RESEARCH_POINTS_PER_MINUTE = 800; // 每分钟技术研究积分
-            const FINE_RESEARCH_POINTS_PER_MINUTE = 1000; // 每分钟精细研究积分
+      function normalizeInputCount(val) {
+        const n = parseFloat(val);
+        if (isNaN(n) || n <= 0) return 0;
+        return n < 100 && String(val).includes(".") ? n * 10000 : n;
+      }
 
-            // 计算积分
-            let totalPoints = 0;
+      function formatWanVersion(points) {
+        const wan = points / 10000;
+        if (wan >= 10000) return (wan / 10000).toFixed(2) + " 亿";
+        return wan.toFixed(2) + " 万";
+      }
 
-            // 随机资源卡
-            totalPoints += randomResourceCard * RESOURCE_POINTS_PER_MINUTE;
+      function formatYiVersion(points) {
+        return (points / 100000000).toFixed(2) + " 亿";
+      }
 
-            // 自选资源卡
-            totalPoints += selectedResourceCard * (RESOURCE_POINTS_PER_MINUTE * 60);
+      function calculatePoints() {
+        const currentStr =
+          document.getElementById("currentPointsValue").value.trim() || "0";
+        const userUnit = detectUnitFromUserInput(currentStr);
+        const currentPoints = toPointsFromUserInput(currentStr);
 
-            // 地契
-            totalPoints += landDeed * LAND_POINTS_PER_10000;
+        const randomResourceCard = normalizeInputCount(
+          document.getElementById("randomResourceCard").value
+        );
+        const selectedResourceCard = normalizeInputCount(
+          document.getElementById("selectedResourceCard").value
+        );
+        const landDeed = normalizeInputCount(
+          document.getElementById("landDeed").value
+        );
+        const techResearchCardCount = normalizeInputCount(
+          document.getElementById("techResearchCardCount").value
+        );
+        const fineResearchCardCount = normalizeInputCount(
+          document.getElementById("fineResearchCardCount").value
+        );
+        const advisorSelections = normalizeInputCount(
+          document.getElementById("advisorSelections").value
+        );
 
-            // 加速卡
-            totalPoints += techResearchCardCount * TECH_RESEARCH_POINTS_PER_MINUTE; // 技术研究加速卡积分
-            totalPoints += fineResearchCardCount * FINE_RESEARCH_POINTS_PER_MINUTE; // 精细研究加速卡积分
+        const RESOURCE_POINTS_PER_MINUTE = 100;
+        const ADVISOR_POINTS_PER_2_SELECTIONS = 1800;
+        const LAND_POINTS_PER_10000 = 1500;
+        const TECH_RESEARCH_POINTS_PER_MINUTE = 800;
+        const FINE_RESEARCH_POINTS_PER_MINUTE = 1000;
 
-            // 顾问选拔积分
-            totalPoints += Math.floor(advisorSelections / 2) * ADVISOR_POINTS_PER_2_SELECTIONS;
+        let totalPropPoints = 0;
+        totalPropPoints += randomResourceCard * RESOURCE_POINTS_PER_MINUTE;
+        totalPropPoints +=
+          selectedResourceCard * (RESOURCE_POINTS_PER_MINUTE * 60);
+        totalPropPoints += landDeed * LAND_POINTS_PER_10000;
+        totalPropPoints +=
+          techResearchCardCount * TECH_RESEARCH_POINTS_PER_MINUTE;
+        totalPropPoints +=
+          fineResearchCardCount * FINE_RESEARCH_POINTS_PER_MINUTE;
+        totalPropPoints +=
+          Math.floor(advisorSelections / 2) * ADVISOR_POINTS_PER_2_SELECTIONS;
 
-            // 最终积分
-            let pointsInWan = totalPoints / 10000.0;
+        const finalPoints = currentPoints + totalPropPoints;
 
-            // 显示结果
-            document.getElementById("result").innerText = `至少获得的积分为：【 ${pointsInWan.toFixed(2)} 】万`;
+        const lines = [];
+        lines.push(`道具所得积分：${(totalPropPoints / 10000).toFixed(2)} 万`);
+
+        if (userUnit === "wan") {
+          lines.push(
+            `最终预估积分：${formatWanVersion(finalPoints)}`
+          );
+          lines.push(`即：${formatYiVersion(finalPoints)}`);
+        } else {
+          lines.push(`最终预估积分：${formatYiVersion(finalPoints)}`);
         }
-    </script>
-</body>
 
+        document.getElementById("result").innerText = lines.join("\n");
+      }
+    </script>
+  </body>
 </html>
