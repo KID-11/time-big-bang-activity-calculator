@@ -1,166 +1,212 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>军功计算器【三天一共】</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
-        select,
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: #f9f9f9;
-            transition: border-color 0.3s ease;
-        }
+      select,
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        transition: border-color 0.3s ease;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="container">
-        <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
+      <button
+        class="back-home-button"
+        onclick="window.location.href='index.html'"
+      >
+        回到首页
+      </button>
 
-        <h1>三天总军功计算器</h1>
+      <h1>
+        三天总军功计算器<br />
+        <a
+          href="#tutorial"
+          style="
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: underline;
+            cursor: pointer;
+          "
+        >
+          ➡️👉 第一次使用请点我查看说明教程 👈⬅️
+        </a>
+      </h1>
 
-        <label>【时代】
-            <select id="era">
-                <option value="330">铁器前</option>
-                <option value="340">铁器中</option>
-                <option value="350">铁器后</option>
-                <option value="360">盛世前</option>
-                <option value="370">盛世中</option>
-                <option value="380">盛世后</option>
-                <option value="390">火器前</option>
-                <option value="400">火器中</option>
-                <option value="410">火器后</option>
-                <option value="420">航海前</option>
-                <option value="430">航海中</option>
-                <option value="440">航海后</option>
-                <option value="450">蒸汽前</option>
-                <option value="460">蒸汽中</option>
-                <option value="470">蒸汽后</option>
-                <option value="480">电气前</option>
-                <option value="490">电气中</option>
-                <option value="500">电气后</option>
-            </select>
-        </label>
-        
+      <label
+        >【时代】
+        <select id="era">
+          <option value="330">铁器前</option>
+          <option value="340">铁器中</option>
+          <option value="350">铁器后</option>
+          <option value="360">盛世前</option>
+          <option value="370">盛世中</option>
+          <option value="380">盛世后</option>
+          <option value="390">火器前</option>
+          <option value="400">火器中</option>
+          <option value="410">火器后</option>
+          <option value="420">航海前</option>
+          <option value="430">航海中</option>
+          <option value="440">航海后</option>
+          <option value="450">蒸汽前</option>
+          <option value="460">蒸汽中</option>
+          <option value="470">蒸汽后</option>
+          <option value="480">电气前</option>
+          <option value="490">电气中</option>
+          <option value="500">电气后</option>
+        </select>
+      </label>
 
-        <label>【大帐阶数 (1~34)】
-            <input type="number" id="campLevel" min="1" max="34">
-        </label>
+      <label
+        >【大帐阶数 (1~34)】
+        <input type="number" id="campLevel" min="1" max="34" />
+      </label>
 
-        <label>【自然体力使用率】
-            <select id="staminaMultiplier">
-                <option>0.1</option>
-                <option>0.2</option>
-                id="staminaMultiplier">
-                <option>0.1</option>
-                <option>0.2</option>
-                <option>0.3</option>
-                <option>0.4</option>
-                <option>0.5</option>
-                <option>0.6</option>
-                <option>0.7</option>
-                <option>0.8</option>
-                <option>0.9</option>
-                <option>1.0</option>
-            </select>
-        </label>
+      <label
+        >【自然体力使用率】
+        <select id="staminaMultiplier">
+          <option>0.1</option>
+          <option>0.2</option>
+          id="staminaMultiplier">
+          <option>0.1</option>
+          <option>0.2</option>
+          <option>0.3</option>
+          <option>0.4</option>
+          <option>0.5</option>
+          <option>0.6</option>
+          <option>0.7</option>
+          <option>0.8</option>
+          <option>0.9</option>
+          <option>1.0</option>
+        </select>
+      </label>
 
-        <label>【军功倍率】
-            <select id="meritMultiplier">
-                <option>1.0</option>
-                <option>1.1</option>
-                <option>1.15</option>
-                <option>1.2</option>
-                <option>1.25</option>
-                <option>1.3</option>
-            </select>
-        </label>
+      <label
+        >【军功倍率】
+        <select id="meritMultiplier">
+          <option>1.0</option>
+          <option>1.1</option>
+          <option>1.15</option>
+          <option>1.2</option>
+          <option>1.25</option>
+          <option>1.3</option>
+        </select>
+      </label>
 
-        <label>【部队1】 <input type="number" id="troop1"></label>
-        <label>【部队2】 <input type="number" id="troop2"></label>
-        <label>【部队3】 <input type="number" id="troop3"></label>
-        <label>【部队4】 <input type="number" id="troop4"></label>
+      <label>【部队1】 <input type="number" id="troop1" /></label>
+      <label>【部队2】 <input type="number" id="troop2" /></label>
+      <label>【部队3】 <input type="number" id="troop3" /></label>
+      <label>【部队4】 <input type="number" id="troop4" /></label>
 
-        <label>【目标战功档位】
-            <select id="targetMerit">
-                <option value="1e8">1亿军功</option>
-                <option value="2.05e8">2.05亿军功</option>
-                <option value="2.27e8">2.27亿军功</option>
-                <option value="3.15e8">3.15亿军功</option>
-                <option value="4.47e8">4.47亿军功</option>
-                <option value="4.91e8">4.91亿军功</option>
-            </select>
-        </label>
+      <label
+        >【目标战功档位】
+        <select id="targetMerit">
+          <option value="1e8">1亿军功</option>
+          <option value="2.05e8">2.05亿军功</option>
+          <option value="2.27e8">2.27亿军功</option>
+          <option value="3.15e8">3.15亿军功</option>
+          <option value="4.47e8">4.47亿军功</option>
+          <option value="4.91e8">4.91亿军功</option>
+        </select>
+      </label>
 
-        <button onclick="calculate()">计算</button>
+      <button onclick="calculate()">计算</button>
 
-        <div class="result" id="finalMerit"></div>
-        <div class="result" id="neededTokens"></div>
+      <div class="result" id="finalMerit"></div>
+      <div class="result" id="neededTokens"></div>
 
-        <!-- 说明板块 -->
-        <div class="info-panel">
-            <h2>说明</h2>
-            <p><strong>计算逻辑提供：</strong>洋芋蛋儿</p>
-            <p><strong>【特别提醒】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此计算基于活动三天【默认广告、玉璧、商店都买满】的情况下，预估的最终军功。<br>
-            </p>
-            <p><strong>词条解释【大帐阶数】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联盟献计可提高军师大帐阶数。<br>
-            </p>
-            <p><strong>词条解释【自然体力使用率】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即随时间而恢复的兵力，你的使用比率。如果军营一直处于招兵状态（即将所有时间恢复的免费兵全部打完），则比率为1，若使用较少则为0.x的比率。<br>
-            </p>
-            <p><strong>词条解释【军功倍率】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br>
-            </p>
-            <p><strong>词条解释【部队1234】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填你自己的三国军营的部队数量。<br>
-            </p>
-        </div>
+      <div class="info-panel" id="tutorial">
+        <h2>说明</h2>
+        <p><strong>计算逻辑提供：</strong>洋芋蛋儿</p>
+        <p>
+          <strong>【特别提醒】：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此计算基于活动三天【默认广告、玉璧、商店都买满】的情况下，预估的最终军功。<br />
+        </p>
+        <p>
+          <strong>词条解释【大帐阶数】：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联盟献计可提高军师大帐阶数。<br />
+        </p>
+        <p>
+          <strong>词条解释【自然体力使用率】：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即随时间而恢复的兵力，你的使用比率。如果军营一直处于招兵状态（即将所有时间恢复的免费兵全部打完），则比率为1，若使用较少则为0.x的比率。<br />
+        </p>
+        <p>
+          <strong>词条解释【军功倍率】：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br />
+        </p>
+        <p>
+          <strong>词条解释【部队1234】：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填你自己的三国军营的部队数量。<br />
+        </p>
+      </div>
     </div>
 
     <script>
-        const tokenList = [5, 10, 15, 20, 30, 40, 50, 60, 75, 90, 105, 120, 140, 160, 180, 200, 220, 240, 260, 290, 320, 350, 380, 410, 450, 490, 530, 570, 610, 660, 710, 760, 810, 860];
+      const tokenList = [
+        5, 10, 15, 20, 30, 40, 50, 60, 75, 90, 105, 120, 140, 160, 180, 200,
+        220, 240, 260, 290, 320, 350, 380, 410, 450, 490, 530, 570, 610, 660,
+        710, 760, 810, 860,
+      ];
 
-        function calculate() {
-            const era = parseInt(document.getElementById('era').value);  // 获取选中的时代值
-            const campLevel = parseInt(document.getElementById('campLevel').value);
-            const staminaMultiplier = parseFloat(document.getElementById('staminaMultiplier').value);
-            const meritMultiplier = parseFloat(document.getElementById('meritMultiplier').value);
-            const troop1 = parseInt(document.getElementById('troop1').value) || 0;
-            const troop2 = parseInt(document.getElementById('troop2').value) || 0;
-            const troop3 = parseInt(document.getElementById('troop3').value) || 0;
-            const troop4 = parseInt(document.getElementById('troop4').value) || 0;
-            const targetMerit = parseFloat(document.getElementById('targetMerit').value);
+      function calculate() {
+        const era = parseInt(document.getElementById("era").value); // 获取选中的时代值
+        const campLevel = parseInt(document.getElementById("campLevel").value);
+        const staminaMultiplier = parseFloat(
+          document.getElementById("staminaMultiplier").value
+        );
+        const meritMultiplier = parseFloat(
+          document.getElementById("meritMultiplier").value
+        );
+        const troop1 = parseInt(document.getElementById("troop1").value) || 0;
+        const troop2 = parseInt(document.getElementById("troop2").value) || 0;
+        const troop3 = parseInt(document.getElementById("troop3").value) || 0;
+        const troop4 = parseInt(document.getElementById("troop4").value) || 0;
+        const targetMerit = parseFloat(
+          document.getElementById("targetMerit").value
+        );
 
-            const tokens = tokenList[campLevel - 1] || 0;
+        const tokens = tokenList[campLevel - 1] || 0;
 
-            const finalMerit = (((tokens + 618) * 5000 + era * 2160 * staminaMultiplier + (troop1 + troop2 + troop3 + troop4) * 3) * 10 * meritMultiplier);
-            const neededTokens = (targetMerit - finalMerit) / (50000 * meritMultiplier);
+        const finalMerit =
+          ((tokens + 618) * 5000 +
+            era * 2160 * staminaMultiplier +
+            (troop1 + troop2 + troop3 + troop4) * 3) *
+          10 *
+          meritMultiplier;
+        const neededTokens =
+          (targetMerit - finalMerit) / (50000 * meritMultiplier);
 
-            let meritFormatted = Math.round(finalMerit).toLocaleString();
-            let meritUnit = '';
+        let meritFormatted = Math.round(finalMerit).toLocaleString();
+        let meritUnit = "";
 
-            if (finalMerit >= 1e8) {
-                meritUnit = `(${(finalMerit / 1e8).toFixed(2)}亿)`;
-            } else if (finalMerit >= 1e4) {
-                meritUnit = `(${(finalMerit / 1e4).toFixed(2)}万)`;
-            }
-
-            document.getElementById('finalMerit').innerText = `三天后最终预估军功：${meritFormatted} ${meritUnit}`;
-            document.getElementById('neededTokens').innerText = `需要补充的兵符数量：${Math.max(0, Math.ceil(neededTokens)).toLocaleString()}`;
+        if (finalMerit >= 1e8) {
+          meritUnit = `(${(finalMerit / 1e8).toFixed(2)}亿)`;
+        } else if (finalMerit >= 1e4) {
+          meritUnit = `(${(finalMerit / 1e4).toFixed(2)}万)`;
         }
-    </script>
-</body>
 
+        document.getElementById(
+          "finalMerit"
+        ).innerText = `三天后最终预估军功：${meritFormatted} ${meritUnit}`;
+        document.getElementById(
+          "neededTokens"
+        ).innerText = `需要补充的兵符数量：${Math.max(
+          0,
+          Math.ceil(neededTokens)
+        ).toLocaleString()}`;
+      }
+    </script>
+  </body>
 </html>
