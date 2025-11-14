@@ -34,7 +34,20 @@
       >
         回到首页
       </button>
-      <h1>时代大进化积分计算器</h1>
+      <h1>
+        时代大进化积分计算器<br />
+        <a
+          href="#tutorial"
+          style="
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: underline;
+            cursor: pointer;
+          "
+        >
+          ➡️👉 第一次使用请点我查看说明教程 👈⬅️
+        </a>
+      </h1>
 
       <div class="input-container">
         <label for="currentPointsValue">你的【当前积分】数值</label>
@@ -81,9 +94,7 @@
       </div>
 
       <div class="input-container">
-        <label for="techResearchCardCount"
-          >【用于技术研究的加速卡】数量</label
-        >
+        <label for="techResearchCardCount">【用于技术研究的加速卡】数量</label>
         <input
           type="number"
           id="techResearchCardCount"
@@ -94,9 +105,7 @@
       </div>
 
       <div class="input-container">
-        <label for="fineResearchCardCount"
-          >【用于精细研究的加速卡】数量</label
-        >
+        <label for="fineResearchCardCount">【用于精细研究的加速卡】数量</label>
         <input
           type="number"
           id="fineResearchCardCount"
@@ -121,7 +130,7 @@
 
       <div class="result" id="result"></div>
 
-      <div class="info-panel">
+      <div class="info-panel" id="tutorial">
         <h2>说明</h2>
         <p>
           <strong>最优使用情况：</strong><br />
@@ -148,7 +157,7 @@
     <script>
       function detectUnitFromUserInput(val) {
         const n = parseFloat(val);
-        if (isNaN(n) || n < 0) return "wan"; 
+        if (isNaN(n) || n < 0) return "wan";
         return n >= 100 ? "wan" : "yi";
       }
 
@@ -223,9 +232,7 @@
         lines.push(`道具所得积分：${(totalPropPoints / 10000).toFixed(2)} 万`);
 
         if (userUnit === "wan") {
-          lines.push(
-            `最终预估积分：${formatWanVersion(finalPoints)}`
-          );
+          lines.push(`最终预估积分：${formatWanVersion(finalPoints)}`);
           lines.push(`即：${formatYiVersion(finalPoints)}`);
         } else {
           lines.push(`最终预估积分：${formatYiVersion(finalPoints)}`);
