@@ -1,87 +1,113 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>军功兵符计算器</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
-        select,
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
+      select,
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
-        <h1>当前军功还需x兵符计算器</h1>
+      <button
+        class="back-home-button"
+        onclick="window.location.href='index.html'"
+      >
+        回到首页
+      </button>
+      <h1>
+        当前军功还需x兵符计算器<br />
+        <a
+          href="#tutorial"
+          style="
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: underline;
+            cursor: pointer;
+          "
+        >
+          ➡️👉 第一次使用请点我查看说明教程 👈⬅️
+        </a>
+      </h1>
 
-        <label>当前军功数值：</label>
-        <input type="number" id="currentMerit" placeholder="例如 8888, 1.76 等" />
+      <label>当前军功数值：</label>
+      <input type="number" id="currentMerit" placeholder="例如 8888, 1.76 等" />
 
-        <label>当前军功单位：</label>
-        <select id="currentMeritUnit">
-            <option value="10000">万</option>
-            <option value="100000000">亿</option>
-        </select>
+      <label>当前军功单位：</label>
+      <select id="currentMeritUnit">
+        <option value="10000">万</option>
+        <option value="100000000">亿</option>
+      </select>
 
-        <label>目标军功数值（单位为亿）：</label>
-        <input type="number" id="targetMerit" placeholder="例如 0.88,1.26 等" />
+      <label>目标军功数值（单位为亿）：</label>
+      <input type="number" id="targetMerit" placeholder="例如 0.88,1.26 等" />
 
-        <label>预估军功倍率：</label>
-        <select id="meritMultiplier">
-            <option value="1.0">1.0</option>
-            <option value="1.1">1.1</option>
-            <option value="1.15">1.15</option>
-            <option value="1.2">1.2</option>
-            <option value="1.25">1.25</option>
-            <option value="1.3">1.3</option>
-        </select>
+      <label>预估军功倍率：</label>
+      <select id="meritMultiplier">
+        <option value="1.0">1.0</option>
+        <option value="1.1">1.1</option>
+        <option value="1.15">1.15</option>
+        <option value="1.2">1.2</option>
+        <option value="1.25">1.25</option>
+        <option value="1.3">1.3</option>
+      </select>
 
-        <button onclick="calculate()">计算所需兵符</button>
+      <button onclick="calculate()">计算所需兵符</button>
 
-        <div id="result" class="result"></div>
-        <div class="info-panel">
-            <h2>说明</h2>
-            <p><strong>词条解释【军功倍率】：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br>
-            </p>
-        </div>
+      <div id="result" class="result"></div>
+      <div class="info-panel" id="tutorial">
+        <h2>说明</h2>
+        <p>
+          <strong>词条解释【军功倍率】：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最高1兵=13军功，即1兵最高军功为自身的1.3倍，即军功倍率在1.0~1.3间。<br />
+        </p>
+      </div>
     </div>
 
     <script>
-        function calculate() {
-            const currentMerit = parseFloat(document.getElementById('currentMerit').value) || 0;
-            const currentUnit = parseInt(document.getElementById('currentMeritUnit').value);
-            const targetMeritValue = parseFloat(document.getElementById('targetMerit').value) || 0;
-            const meritMultiplier = parseFloat(document.getElementById('meritMultiplier').value);
+      function calculate() {
+        const currentMerit =
+          parseFloat(document.getElementById("currentMerit").value) || 0;
+        const currentUnit = parseInt(
+          document.getElementById("currentMeritUnit").value
+        );
+        const targetMeritValue =
+          parseFloat(document.getElementById("targetMerit").value) || 0;
+        const meritMultiplier = parseFloat(
+          document.getElementById("meritMultiplier").value
+        );
 
-            const targetMerit = targetMeritValue * 100000000;
+        const targetMerit = targetMeritValue * 100000000;
 
-            const actualCurrentMerit = currentMerit * currentUnit;
+        const actualCurrentMerit = currentMerit * currentUnit;
 
-            const neededMerit = targetMerit - actualCurrentMerit;
+        const neededMerit = targetMerit - actualCurrentMerit;
 
-            if (neededMerit <= 0) {
-                document.getElementById('result').innerText = "已达标或超出目标军功，无需补充兵符！";
-                return;
-            }
-
-            const meritPerToken = 5000 * 10 * meritMultiplier;
-
-            const neededTokens = Math.ceil(neededMerit / meritPerToken);
-
-            document.getElementById('result').innerText = `预计还需要补充兵符数量为：${neededTokens.toLocaleString()} 个`;
+        if (neededMerit <= 0) {
+          document.getElementById("result").innerText =
+            "已达标或超出目标军功，无需补充兵符！";
+          return;
         }
-    </script>
-</body>
 
+        const meritPerToken = 5000 * 10 * meritMultiplier;
+
+        const neededTokens = Math.ceil(neededMerit / meritPerToken);
+
+        document.getElementById(
+          "result"
+        ).innerText = `预计还需要补充兵符数量为：${neededTokens.toLocaleString()} 个`;
+      }
+    </script>
+  </body>
 </html>
