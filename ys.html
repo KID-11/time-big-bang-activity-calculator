@@ -1,117 +1,164 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>繁华盛世积分计算</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <button class="back-home-button" onclick="window.location.href='index.html'">回到首页</button>
+      <button
+        class="back-home-button"
+        onclick="window.location.href='index.html'"
+      >
+        回到首页
+      </button>
 
-        <h1>繁华盛世(盛唐夜市)积分计算</h1>
+      <h1>
+        繁华盛世(盛唐夜市)积分计算<br />
+        <a
+          href="#tutorial"
+          style="
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: underline;
+            cursor: pointer;
+          "
+        >
+          ➡️👉 第一次使用请点我查看说明教程 👈⬅️
+        </a>
+      </h1>
 
-        <form id="prosperityForm">
-            <div class="input-container">
-                <label for="remainingDays">剩余活动时间 - 天：</label>
-                <input type="number" id="remainingDays" placeholder="0~3" min="0" max="3">
-            </div>
-
-            <div class="input-container">
-                <label for="remainingHours">剩余活动时间 - 小时：</label>
-                <input type="number" id="remainingHours" placeholder="0~23" min="0" max="23">
-            </div>
-
-            <div class="input-container">
-                <label for="currentBase">目前基础积分 (万)：</label>
-                <input type="number" id="currentBase" step="0.01" value="0">
-            </div>
-
-            <div class="input-container">
-                <label for="target">目标积分 (万)：</label>
-                <input type="number" id="target" step="0.01" value="0">
-            </div>
-
-            <div class="input-container">
-                <label for="traffic">总客流量 (万/小时)：</label>
-                <input type="number" id="traffic" step="0.001" value="0">
-            </div>
-
-            <div class="input-container">
-                <label for="brochures">目前已有的宣传册数量：</label>
-                <input type="number" id="brochures" value="0">
-            </div>
-
-            <button type="button" onclick="calculateBrochures()">计算所需宣传册数量</button>
-        </form>
-
-        <div class="result" id="result"></div>
-
-        <!-- 说明板块 -->
-        <div class="info-panel">
-            <h2>说明</h2>
-            <p><strong>灵感：</strong>冰川18 孜然</p>
-            <p><strong>bug说明：</strong><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于宣传册使用结算的建筑是随机的，即客流量随机(每个建筑的客流量不同)，所以本计算结果是平均拟合状态下的计算数值，仅供参考!
-                现对各项需填数值进行解释说明:<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余时长：</strong>繁华夜市活动界面，大红绸缎标题：“繁华夜市评选大赛”下方的活动日期处，括号中可看到剩余天数与时长。<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前基础积分：</strong>活动开始前攒的，点完后会有个基础积分，在繁华夜市活动界面查看。<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目标积分：</strong>冲榜或者完成任务，要达到的积分数。<br>
-                <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总客流量：</strong>点开盛唐夜市的界面后，点击右下角的“管理”可查看（管理就在宣传册旁边），管理界面显示的第二栏即可查看总客流量。<br>
-            </p>
+      <form id="prosperityForm">
+        <div class="input-container">
+          <label for="remainingDays">剩余活动时间 - 天：</label>
+          <input
+            type="number"
+            id="remainingDays"
+            placeholder="0~3"
+            min="0"
+            max="3"
+          />
         </div>
+
+        <div class="input-container">
+          <label for="remainingHours">剩余活动时间 - 小时：</label>
+          <input
+            type="number"
+            id="remainingHours"
+            placeholder="0~23"
+            min="0"
+            max="23"
+          />
+        </div>
+
+        <div class="input-container">
+          <label for="currentBase">目前基础积分 (万)：</label>
+          <input type="number" id="currentBase" step="0.01" value="0" />
+        </div>
+
+        <div class="input-container">
+          <label for="target">目标积分 (万)：</label>
+          <input type="number" id="target" step="0.01" value="0" />
+        </div>
+
+        <div class="input-container">
+          <label for="traffic">总客流量 (万/小时)：</label>
+          <input type="number" id="traffic" step="0.001" value="0" />
+        </div>
+
+        <div class="input-container">
+          <label for="brochures">目前已有的宣传册数量：</label>
+          <input type="number" id="brochures" value="0" />
+        </div>
+
+        <button type="button" onclick="calculateBrochures()">
+          计算所需宣传册数量
+        </button>
+      </form>
+
+      <div class="result" id="result"></div>
+
+      <!-- 说明板块 -->
+      <div class="info-panel" id="tutorial">
+        <h2>说明</h2>
+        <p><strong>灵感：</strong>冰川18 孜然</p>
+        <p>
+          <strong>bug说明：</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于宣传册使用结算的建筑是随机的，即客流量随机(每个建筑的客流量不同)，所以本计算结果是平均拟合状态下的计算数值，仅供参考!
+          现对各项需填数值进行解释说明:<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余时长：</strong
+          >繁华夜市活动界面，大红绸缎标题：“繁华夜市评选大赛”下方的活动日期处，括号中可看到剩余天数与时长。<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前基础积分：</strong
+          >活动开始前攒的，点完后会有个基础积分，在繁华夜市活动界面查看。<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目标积分：</strong
+          >冲榜或者完成任务，要达到的积分数。<br />
+          <strong
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总客流量：</strong
+          >点开盛唐夜市的界面后，点击右下角的“管理”可查看（管理就在宣传册旁边），管理界面显示的第二栏即可查看总客流量。<br />
+        </p>
+      </div>
     </div>
 
     <script>
-        function calculateBrochures() {
-            const currentBase = parseFloat(document.getElementById("currentBase").value);
-            const target = parseFloat(document.getElementById("target").value);
-            const traffic = parseFloat(document.getElementById("traffic").value);
-            const brochures = parseInt(document.getElementById("brochures").value);
-            const remainingDays = parseInt(document.getElementById("remainingDays").value);
-            const remainingHours = parseInt(document.getElementById("remainingHours").value);
+      function calculateBrochures() {
+        const currentBase = parseFloat(
+          document.getElementById("currentBase").value
+        );
+        const target = parseFloat(document.getElementById("target").value);
+        const traffic = parseFloat(document.getElementById("traffic").value);
+        const brochures = parseInt(document.getElementById("brochures").value);
+        const remainingDays = parseInt(
+          document.getElementById("remainingDays").value
+        );
+        const remainingHours = parseInt(
+          document.getElementById("remainingHours").value
+        );
 
-            if (
-                isNaN(currentBase) || isNaN(target) || isNaN(traffic) || isNaN(brochures) ||
-                isNaN(remainingDays) || isNaN(remainingHours) ||
-                traffic === 0 || remainingDays < 0 || remainingHours < 0 || remainingHours > 23
-            ) {
-                document.getElementById("result").innerText = "请填写有效数据，时间范围应为：天 >= 0，小时在 0~23。";
-                return;
-            }
-
-            // 1. 当前总积分
-            const currentTotal = currentBase + (brochures * traffic / 8);
-
-            // 2. 剩余自然增长积分 = (天*24 + 小时) * 客流量
-            const totalRemainingHours = remainingDays * 24 + remainingHours;
-            const naturalGrowth = totalRemainingHours * traffic;
-
-            // 3. 最终可获得积分
-            const maxPossiblePoints = currentTotal + naturalGrowth;
-
-            // 4. 差值积分
-            const diff = target - maxPossiblePoints;
-
-            if (diff <= 0) {
-                document.getElementById("result").innerText =
-                    `当前积分 + 自然增长已足够达到目标积分！\n可达到积分为：${maxPossiblePoints.toFixed(2)} 万`;
-                return;
-            }
-
-            // 5. 所需宣传册数量
-            const neededBrochures = Math.ceil((8 * diff) / traffic);
-
-            document.getElementById("result").innerText =
-                `当前总积分为：${currentTotal.toFixed(2)} 万\n` +
-                `剩余自然增长积分为：${naturalGrowth.toFixed(2)} 万\n` +
-                `预计总积分为：${maxPossiblePoints.toFixed(2)} 万\n` +
-                `仍需使用宣传册数量约：${neededBrochures} 个`;
+        if (
+          isNaN(currentBase) ||
+          isNaN(target) ||
+          isNaN(traffic) ||
+          isNaN(brochures) ||
+          isNaN(remainingDays) ||
+          isNaN(remainingHours) ||
+          traffic === 0 ||
+          remainingDays < 0 ||
+          remainingHours < 0 ||
+          remainingHours > 23
+        ) {
+          document.getElementById("result").innerText =
+            "请填写有效数据，时间范围应为：天 >= 0，小时在 0~23。";
+          return;
         }
-    </script>
-</body>
+        const currentTotal = currentBase + (brochures * traffic) / 8;
+        const totalRemainingHours = remainingDays * 24 + remainingHours;
+        const naturalGrowth = totalRemainingHours * traffic;
+        const maxPossiblePoints = currentTotal + naturalGrowth;
+        const diff = target - maxPossiblePoints;
 
+        if (diff <= 0) {
+          document.getElementById(
+            "result"
+          ).innerText = `当前积分 + 自然增长已足够达到目标积分！\n可达到积分为：${maxPossiblePoints.toFixed(
+            2
+          )} 万`;
+          return;
+        }
+
+        const neededBrochures = Math.ceil((8 * diff) / traffic);
+
+        document.getElementById("result").innerText =
+          `当前总积分为：${currentTotal.toFixed(2)} 万\n` +
+          `剩余自然增长积分为：${naturalGrowth.toFixed(2)} 万\n` +
+          `预计总积分为：${maxPossiblePoints.toFixed(2)} 万\n` +
+          `仍需使用宣传册数量约：${neededBrochures} 个`;
+      }
+    </script>
+  </body>
 </html>
