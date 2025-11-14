@@ -24,6 +24,10 @@
         line-height: 1.8;
         text-align: left;
       }
+      /* 新增：隐藏用的样式 */
+      .hidden {
+        display: none;
+      }
     </style>
   </head>
 
@@ -43,7 +47,7 @@
         <input
           type="number"
           id="currentMileageWan"
-          placeholder="例如: 7.36"
+          placeholder="例如: 7.36 或 0"
           min="0"
           step="0.01"
         />
@@ -74,6 +78,17 @@
         <input type="number" id="bunCount" placeholder="例如: 150" min="0" />
       </div>
 
+      <div class="input-container hidden" id="freeTimeContainer">
+        <label for="freeHours">当前攒的免费时长（小时）：</label>
+        <input
+          type="number"
+          id="freeHours"
+          placeholder="例如: 200 或 199.5"
+          min="0"
+          step="0.5"
+        />
+      </div>
+
       <button onclick="calcMileage()">计算所需大饼</button>
 
       <div class="result" id="result"></div>
@@ -85,8 +100,12 @@
           已开通了12元的“八方聚财”特权，即可以使用【自动贸易】功能！
         </p>
         <p>
+          <strong>当前已跑里程：</strong>
+          打开“天朝上宝”活动界面（底层“任务”处查看），建议先使用完自己攒的200小时免费时长（相当于使用400个饼），获得基础已跑里程值后，再填入此处后再计算剩余需要补充的饼。
+        </p>
+        <p>
           <strong>每轮里程：</strong>
-          打开“自动贸易”界面，选择固定路线后，界面的左上角可以看到每轮里程。
+          打开“自动贸易”界面，选择固定路线后，点击某座城右上角的黄色锯齿，界面的正上方“每轮贸易”处，有每轮里程信息。
         </p>
         <p>
           <strong>每轮固定路线的城池数量：</strong>
@@ -104,6 +123,20 @@
     </div>
 
     <script>
+      const currentMileageInput = document.getElementById("currentMileageWan");
+      const freeTimeContainer = document.getElementById("freeTimeContainer");
+      const freeHoursInput = document.getElementById("freeHours");
+
+      currentMileageInput.addEventListener("input", function () {
+        const v = parseFloat(this.value);
+        if (!isNaN(v) && v === 0) {
+          freeTimeContainer.classList.remove("hidden");
+        } else {
+          freeTimeContainer.classList.add("hidden");
+          freeHoursInput.value = "";
+        }
+      });
+
       function calcMileage() {
         const MAX_TARGET = 100000;
 
@@ -133,14 +166,12 @@
         const remainMileage = Math.max(0, MAX_TARGET - currentMileage);
 
         if (remainMileage === 0) {
-          resultEl.innerText = "🎉 目标已达成，无需补充菔力饼！";
+          resultEl.innerText = "目标已达成，无需补充菔力饼！";
           return;
         }
 
         const timePerRound = routeDistance / speed + cityCount;
-
         const totalTime = (remainMileage / routeDistance) * timePerRound;
-
         const bunsRequiredTotal = totalTime * 2;
 
         const bunsStillNeeded = Math.max(
@@ -148,13 +179,32 @@
           Math.ceil(bunsRequiredTotal - bunsOwned)
         );
 
-        resultEl.innerText =
+        let outputText =
           `目标总里程：100000 里（10 w）\n` +
           `剩余里程：${(remainMileage / 10000).toFixed(2)} \n` +
           `完成剩余里程所需总时间：${totalTime.toFixed(2)} 小时\n` +
           `➡️ 仍需补充的菔力饼：${bunsStillNeeded.toLocaleString(
             "zh-CN"
-          )} 个\n\n`;
+          )} 个\n`;
+
+        if (currentMileageWan === 0) {
+          const freeHours = parseFloat(freeHoursInput.value) || 0;
+          const bunsFromFreeTime = freeHours * 2;
+          const bunsAfterFreeTime = Math.max(
+            0,
+            bunsStillNeeded - bunsFromFreeTime
+          );
+
+          outputText +=
+            `（其中：免费时长折算菔力饼约 ${bunsFromFreeTime.toFixed(
+              2
+            )} 个）\n` +
+            `➡️ 减去免费时长后，还需补的菔力饼：${bunsAfterFreeTime.toLocaleString(
+              "zh-CN"
+            )} 个\n`;
+        }
+
+        resultEl.innerText = outputText + "\n";
       }
     </script>
   </body>
