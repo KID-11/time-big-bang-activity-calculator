@@ -40,7 +40,20 @@
         回到首页
       </button>
 
-      <h1>天朝上宝（御赏值）计算</h1>
+      <h1>
+        天朝上宝（御赏值）计算<br />
+        <a
+          href="#tutorial"
+          style="
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: underline;
+            cursor: pointer;
+          "
+        >
+          ➡️👉 第一次使用请点我查看说明教程 👈⬅️
+        </a>
+      </h1>
 
       <div class="input-container">
         <label for="currentScoreWan">现有的御赏值（万）：</label>
@@ -93,7 +106,7 @@
 
       <div class="result" id="result"></div>
 
-      <div class="info-panel">
+      <div class="info-panel" id="tutorial">
         <h2>说明</h2>
         <p>
           <strong>前提：</strong>
@@ -101,7 +114,7 @@
         </p>
         <p>
           <strong>每轮里程：</strong>
-          打开“自动贸易”界面，选择固定路线后，界面的左上角可以看到每轮里程。
+          打开“自动贸易”界面，选择固定路线后，点击某座城右上角的黄色锯齿，界面的正上方“每轮贸易”处，有每轮里程信息。
         </p>
         <p>
           <strong>每轮固定路线的城池数量：</strong>
@@ -156,7 +169,7 @@
         const targetScore = targetScoreWan * 10000;
 
         const pointsPerDraw = 470;
-        const timePerTrip = routeDistance / caravanSpeed + cityCount; 
+        const timePerTrip = routeDistance / caravanSpeed + cityCount;
         if (timePerTrip <= 0) {
           resultEl.innerText = "参数异常：单次时间需大于 0。";
           return;
@@ -193,9 +206,7 @@
           resultEl.innerText =
             `还可以得到的御赏值：${gainScoreWan.toFixed(2)} 万\n` +
             `最终估算的御赏值：${finalScoreWan.toFixed(2)} 万\n` +
-            `➡️ 仍需补充的菔力饼：${additionalBuns.toLocaleString(
-              "zh-CN"
-            )} 个`;
+            `➡️ 仍需补充的菔力饼：${additionalBuns.toLocaleString("zh-CN")} 个`;
         }
       }
     </script>
